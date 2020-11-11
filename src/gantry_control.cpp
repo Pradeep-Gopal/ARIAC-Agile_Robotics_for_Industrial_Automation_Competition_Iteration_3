@@ -38,6 +38,34 @@ void GantryControl::init() {
 
     left_arm_group_.setPoseReferenceFrame("world");
 
+    //Moving to shelf 8
+    // gasket part green
+    shelf8_w1_.gantry = {0.0,-1.6,0};
+    shelf8_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_w2_.gantry = {-13.5,-1.6,0};
+    shelf8_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_w3_.gantry = {-14.5, -1.6, 0.0};
+    shelf8_w3_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_w4_.gantry = {-14.5, -1.2, 0.0};
+    shelf8_w4_.left_arm = {-2.79, -PI/4, PI/2, -PI/4, -1.39626, 0};
+    shelf8_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //shelf 4
+    int cam = 4;
+    std::vector<PresetLocation> waypoints;
+    waypoints.push_back(shelf8_w1_);
+    waypoints.push_back(shelf8_w2_);
+    waypoints.push_back(shelf8_w3_);
+    waypoints.push_back(shelf8_w4_);
+    pickup_locations[cam] = waypoints;
+
+
 
 // BIN 16 preset location
     bin16_.gantry = {5.00, 1.95,0.0};
@@ -153,23 +181,7 @@ void GantryControl::init() {
     agv2_flip_target_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv2_flip_target_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    //Moving to shelf 8
-    // gasket part green
-    shelf8_w1_.gantry = {0.0,-1.6,0};
-    shelf8_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    shelf8_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8_w2_.gantry = {-14.5,-1.6,0};
-    shelf8_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    shelf8_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-    shelf8_w3_.gantry = {-14.5, -1.6, 0.0};
-    shelf8_w3_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, PI/2, 0};
-    shelf8_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-    shelf8_w4_.gantry = {-14.5, -1.2, 0.0};
-    shelf8_w4_.left_arm = {-2.79, -PI/4, PI/2, -PI/4, -1.39626, 0};
-    shelf8_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //Moving to shelf 11
     // gasket part blue

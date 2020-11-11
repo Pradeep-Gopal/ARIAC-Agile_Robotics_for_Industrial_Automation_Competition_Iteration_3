@@ -315,6 +315,7 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
 int main(int argc, char ** argv) {
 
 
+
     ros::init(argc, argv, "rwa3_node");
     ros::NodeHandle node;
     ros::AsyncSpinner spinner(8);
@@ -348,6 +349,17 @@ int main(int argc, char ** argv) {
 
     parts_from_camera_main = comp.get_parts_from_camera();
     master_vector_main = comp.get_master_vector();
+
+//    shelf5 shelf5_;
+//    std::vector<PresetLocation> temp;
+    int c = 4;
+    auto q = gantry.pickup_locations.find(c);
+    std::cout << q->first <<" " << q->second[0].gantry[1] << std::endl;
+//    std::cout << q <<std::endl;
+
+//    for(auto i:temp){
+//        std::cout << i.gantry <<std::endl;
+//    }
 
 
     LOOP3:for(i; i < comp.get_received_order_vector().size();  i++) {
@@ -586,25 +598,40 @@ int main(int argc, char ** argv) {
                                 std::string location = "shelf 8";
                                 gantry.goToPresetLocation(gantry.start_);
                                 ROS_INFO_STREAM("Start location reached");
-                                gantry.goToPresetLocation(gantry.shelf8_w1_);
-                                ROS_INFO_STREAM("Wavepoint1 location reached");
-                                gantry.goToPresetLocation(gantry.shelf8_w2_);
-                                ROS_INFO_STREAM("Wavepoint2 location reached");
-                                gantry.goToPresetLocation(gantry.shelf8_w3_);
-                                ROS_INFO_STREAM("Wavepoint2 location reached");
-                                gantry.goToPresetLocation(gantry.shelf8_w4_);
-                                ROS_INFO_STREAM("Wavepoint2 location reached");
+
+
+                                auto q = gantry.pickup_locations.find(l);
+                                for (auto y: q->second){
+                                    gantry.goToPresetLocation(y);
+                                }
+//                                std::cout << q->first <<" " << q->second[0].gantry[1] << std::endl;
+
+
+//                                gantry.goToPresetLocation(gantry.shelf8_w1_);
+//                                ROS_INFO_STREAM("Wavepoint1 location reached");
+//                                gantry.goToPresetLocation(gantry.shelf8_w2_);
+//                                ROS_INFO_STREAM("Wavepoint2 location reached");
+//                                gantry.goToPresetLocation(gantry.shelf8_w3_);
+//                                ROS_INFO_STREAM("Wavepoint2 location reached");
+//                                gantry.goToPresetLocation(gantry.shelf8_w4_);
+//                                ROS_INFO_STREAM("Wavepoint2 location reached");
 
                                 gantry.pickPart(parts_from_camera_main[l][m]);
                                 ROS_INFO_STREAM("Part picked");
-                                gantry.goToPresetLocation(gantry.shelf8_w4_);
-                                ROS_INFO_STREAM("Wavepoint2 location reached");
-                                gantry.goToPresetLocation(gantry.shelf8_w3_);
-                                ROS_INFO_STREAM("Wavepoint2 location reached");
-                                gantry.goToPresetLocation(gantry.shelf8_w2_);
-                                ROS_INFO_STREAM("Wavepoint2 location reached");
-                                gantry.goToPresetLocation(gantry.shelf8_w1_);
-                                ROS_INFO_STREAM("Wavepoint1 location reached");
+
+                                for (auto it = q->second.rbegin(); it != q->second.rend(); it++){
+//                                    cout << *it << " ";
+                                    gantry.goToPresetLocation(*it);
+                                }
+
+//                                gantry.goToPresetLocation(gantry.shelf8_w4_);
+//                                ROS_INFO_STREAM("Wavepoint2 location reached");
+//                                gantry.goToPresetLocation(gantry.shelf8_w3_);
+//                                ROS_INFO_STREAM("Wavepoint2 location reached");
+//                                gantry.goToPresetLocation(gantry.shelf8_w2_);
+//                                ROS_INFO_STREAM("Wavepoint2 location reached");
+//                                gantry.goToPresetLocation(gantry.shelf8_w1_);
+//                                ROS_INFO_STREAM("Wavepoint1 location reached");
 //
 //                                part part_in_tray;
 //                                part_in_tray.type = master_vector_main[i][j][k].type;

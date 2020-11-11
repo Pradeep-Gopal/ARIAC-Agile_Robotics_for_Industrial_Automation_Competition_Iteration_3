@@ -37,6 +37,7 @@
 #include <trajectory_msgs/JointTrajectory.h>
 
 #include "utils.h"
+#include <unordered_map>
 
 
 class GantryControl {
@@ -83,6 +84,9 @@ class GantryControl {
     pose_change pose_change_1_agv1, pose_change_2_agv1,pose_change_1_agv2,pose_change_2_agv2;
     agv2_flip agv2_flip_,agv1_flip_;
     flip_target agv2_flip_target_,agv1_flip_target_;
+    std::unordered_map<int, std::vector<PresetLocation>> pickup_locations;
+//    std::unordered_map<int, char> pickup_locations;
+    std::unordered_map<int, char>:: iterator itr;
 
   private:
     std::vector<double> joint_group_positions_;

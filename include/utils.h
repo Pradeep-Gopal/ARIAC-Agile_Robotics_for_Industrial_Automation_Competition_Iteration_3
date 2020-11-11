@@ -25,7 +25,6 @@ const double PI = 3.141592; // TODO correct!
 const int MAX_NUMBER_OF_CAMERAS = 18;
 
 
-
 const int MAX_PICKING_ATTEMPTS = 3; // for pickup
 const double ABOVE_TARGET = 0.2; // above target z pos when picking/placing part
 const double PICK_TIMEOUT = 4.0;
@@ -129,6 +128,7 @@ typedef struct Stats {
   int calls = 0;
   int fails = 0;
 } stats;
+
 
 
 #endif
