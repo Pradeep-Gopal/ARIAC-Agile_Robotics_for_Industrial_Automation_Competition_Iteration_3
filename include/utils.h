@@ -22,8 +22,7 @@ typedef struct Product product;
 const double PI = 3.141592; // TODO correct!
 
 // Logical cameras
-const int MAX_NUMBER_OF_CAMERAS = 17;
-
+const int MAX_NUMBER_OF_CAMERAS = 18;
 
 
 const int MAX_PICKING_ATTEMPTS = 3; // for pickup
@@ -55,7 +54,7 @@ typedef struct PresetLocation {
     std::vector<double> gantry;
     std::vector<double> left_arm;
     std::vector<double> right_arm;
-} start, bin3, bin16, bin13, shelf5, agv1, agv2, agv2_drop, shelf5, waypoint_1, waypoint_2, waypoint_3, waypoint_4,pose_change, flip_target, agv2_flip, test_pos;
+} start, bin3, bin16, bin13, shelf5, agv2, agv2_drop, shelf5, waypoint_1, waypoint_2, waypoint_3, waypoint_4,pose_change, flip_target, agv2_flip;
 
 
 typedef struct Part {
@@ -76,6 +75,7 @@ typedef struct master_struct{
     std::string order_id;
     std::string shipment_type;
     std::string agv_id;
+    bool delivered = false;
 } master_struct;
 
 
@@ -128,6 +128,7 @@ typedef struct Stats {
   int calls = 0;
   int fails = 0;
 } stats;
+
 
 
 #endif

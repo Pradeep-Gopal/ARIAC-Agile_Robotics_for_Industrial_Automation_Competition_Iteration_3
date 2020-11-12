@@ -1,4 +1,4 @@
-/home/govind/Downloads/CLion-2020.2.1/clion-2020.2.1/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/govind/ariac_ws/src/rwa4_group1
+/opt/clion-2020.2.2/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/prachu/ariac_ws/src/rwa5_group_1
 CMake Error at CMakeLists.txt:12 (find_package):
   By not providing "Findcatkin.cmake" in CMAKE_MODULE_PATH this project has
   asked CMake to find a package configuration file provided by "catkin", but
@@ -17,4 +17,4 @@ CMake Error at CMakeLists.txt:12 (find_package):
 
 
 -- Configuring incomplete, errors occurred!
-See also "/home/govind/ariac_ws/src/rwa4_group1/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+See also "/home/prachu/ariac_ws/src/rwa5_group_1/cmake-build-debug/CMakeFiles/CMakeOutput.log".
