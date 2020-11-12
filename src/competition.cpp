@@ -1,12 +1,14 @@
 #include "competition.h"
 #include "utils.h"
 #include <nist_gear/LogicalCameraImage.h>
+#include <nist_gear/Proximity.h>
 #include <nist_gear/Order.h>
 #include <std_srvs/Trigger.h>
 #include "gantry_control.h"
 #include <string>
 #include <vector>
 
+int p =0;
 int camera_no = 0;
 part faulty_part_agv2;
 
@@ -47,10 +49,24 @@ void Competition::init() {
     quality_control_sensor_1_subscriber_ = node_.subscribe(
             "/ariac/quality_control_sensor_1", 10, &Competition::quality_control_sensor_1_subscriber_callback, this);
 
+    ROS_INFO("Subscribe to the /ariac/breakbeam_0");
+    breakbeam_sensor_1_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_0", 10, &Competition::breakbeam_sensor_1_callback, this);
+
+
   startCompetition();
 
   init_.total_time += ros::Time::now().toSec() - time_called;
 
+}
+
+void Competition::breakbeam_sensor_1_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_conveyor_belt_part_status = msg->object_detected;
+}
+
+void Competition::setter_delivered(int i, int j, int k)
+{
+    master_vector[i][j][k].delivered = true;
 }
 
 void Competition::print_parts_detected(){
@@ -66,48 +82,59 @@ void Competition::print_parts_detected(){
     }
 }
 
+std::vector<nist_gear::Order> Competition::get_received_order_vector()
+{
+ return received_orders_;
+}
 
 void Competition::pre_kitting()
 {
-
     // Populating Orders vector
-    for (int i =0; i < received_orders_.size(); i++)
+    for (p; p < received_orders_.size(); p++)
     {
+//        ROS_INFO_STREAM("ORDER NUMBER    =    " << p);
         order order_instance;
-        order_instance.order_id = received_orders_[i].order_id;
-        order_instance.shipments = received_orders_[i].shipments;
+        order_instance.order_id = received_orders_[p].order_id;
+//        ROS_INFO_STREAM("Order ID = " << order_instance.order_id);
+        order_instance.shipments = received_orders_[p].shipments;
         orders_vector.push_back(order_instance);
 
         //Populating Shipment vector for each order
-        for (int j = 0; j < orders_vector[i].shipments.size(); j++)
+        for (int j = 0; j < orders_vector[p].shipments.size(); j++)
         {
             shipment shipment_instance;
-            shipment_instance.shipment_type = orders_vector[i].shipments[j].shipment_type;
-            shipment_instance.agv_id  = orders_vector[i].shipments[j].agv_id;
-            shipment_instance.products  = orders_vector[i].shipments[j].products;
-
+            shipment_instance.shipment_type = orders_vector[p].shipments[j].shipment_type;
+//            ROS_INFO_STREAM("Shipment ID = " << shipment_instance.shipment_type);
+            shipment_instance.agv_id  = orders_vector[p].shipments[j].agv_id;
+//            ROS_INFO_STREAM("AGV ID = " << orders_vector[p].shipments[j].agv_id);
+//            ROS_INFO_STREAM("PRODUCT  = " << orders_vector[p].shipments[j].products.size());
+            shipment_instance.products  = orders_vector[p].shipments[j].products;
             shipment_vector.push_back(shipment_instance);
+//            ROS_INFO_STREAM("Size of the order = " << orders_vector[p].shipments[j].products.size());
+//            ROS_INFO_STREAM("Product type = " << orders_vector[p].shipments[j].products[0].type);
+
+
 
 //            ROS_INFO_STREAM("==========================PARTS TO BE PICKED==============================");
-            for (int k = 0; k < shipment_vector[j].products.size(); k++)
+            for (int k = 0; k < orders_vector[p].shipments[j].products.size(); k++)
             {
-//                ROS_INFO_STREAM(shipment_vector[j].products[k].type);
                 if(shipment_vector[j].products[k].type == ("pulley_part_red") || ("pulley_part_blue") || ("pulley_part_green") || ("piston_part_red") || ("piston_part_green") || ("piston_part_blue") || ("disk_part_red") || ("disk_part_green") || ("disk_part_blue") || ("gasket_part_red") || ("gasket_part_green") || ("gasket_part_blue") ) {
-                    ROS_INFO_STREAM("Part kidachiduchu doiiii");
-                    ROS_INFO_STREAM(shipment_vector[j].products[k].pose);
+//                    ROS_INFO_STREAM("Part from prekitting function");
+//                    ROS_INFO_STREAM(orders_vector[p].shipments[j].products[k].type);
+//                    ROS_INFO_STREAM(orders_vector[p].shipments[j].products[k].pose);
 
                     part part_to_be_placed;
-                    part_to_be_placed.type = shipment_vector[j].products[k].type;
-                    part_to_be_placed.pose.position.x = shipment_vector[j].products[k].pose.position.x;
-                    part_to_be_placed.pose.position.y = shipment_vector[j].products[k].pose.position.y;
-                    part_to_be_placed.pose.position.z = shipment_vector[j].products[k].pose.position.z;
-                    part_to_be_placed.pose.orientation.x = shipment_vector[j].products[k].pose.orientation.x;
-                    part_to_be_placed.pose.orientation.y = shipment_vector[j].products[k].pose.orientation.y;
-                    part_to_be_placed.pose.orientation.z = shipment_vector[j].products[k].pose.orientation.z;
-                    part_to_be_placed.pose.orientation.w = shipment_vector[j].products[k].pose.orientation.w;
+                    part_to_be_placed.type = orders_vector[p].shipments[j].products[k].type;
+                    part_to_be_placed.pose.position.x = orders_vector[p].shipments[j].products[k].pose.position.x;
+                    part_to_be_placed.pose.position.y = orders_vector[p].shipments[j].products[k].pose.position.y;
+                    part_to_be_placed.pose.position.z = orders_vector[p].shipments[j].products[k].pose.position.z;
+                    part_to_be_placed.pose.orientation.x = orders_vector[p].shipments[j].products[k].pose.orientation.x;
+                    part_to_be_placed.pose.orientation.y = orders_vector[p].shipments[j].products[k].pose.orientation.y;
+                    part_to_be_placed.pose.orientation.z = orders_vector[p].shipments[j].products[k].pose.orientation.z;
+                    part_to_be_placed.pose.orientation.w = orders_vector[p].shipments[j].products[k].pose.orientation.w;
 
                     master_struct master_struct_instance;
-                    master_struct_instance.type = shipment_vector[j].products[k].type;
+                    master_struct_instance.type = part_to_be_placed.type;
                     master_struct_instance.place_part_pose.position.x = part_to_be_placed.pose.position.x;
                     master_struct_instance.place_part_pose.position.y = part_to_be_placed.pose.position.y;
                     master_struct_instance.place_part_pose.position.z = part_to_be_placed.pose.position.z;
@@ -118,37 +145,27 @@ void Competition::pre_kitting()
                     master_struct_instance.order_id = order_instance.order_id;
                     master_struct_instance.shipment_type = shipment_instance.shipment_type;
                     master_struct_instance.agv_id = shipment_instance.agv_id;
-                    master_vector[i][j][k] = master_struct_instance;
+                    master_vector[p][j][k] = master_struct_instance;
                 }
-
-//                product product_vector_instance;
-//                product_vector_instance.type = part_to_be_placed.type;
-//                product_vector_instance.pose.position.x = part_to_be_placed.pose.position.x;
-//                product_vector_instance.pose.position.y = part_to_be_placed.pose.position.y;
-//                product_vector_instance.pose.position.z = part_to_be_placed.pose.position.z;
-//                product_vector_instance.pose.orientation.x = part_to_be_placed.pose.orientation.x;
-//                product_vector_instance.pose.orientation.y = part_to_be_placed.pose.orientation.y;
-//                product_vector_instance.pose.orientation.z = part_to_be_placed.pose.orientation.z;
-//                product_vector_instance.pose.orientation.w = part_to_be_placed.pose.orientation.w;
-//                product_vector_instance.agv_id = shipment_instance.agv_id;
-//                product_vector.push_back(product_vector_instance);
-
-//                Competition::during_kitting(part_to_be_placed);
             }
         }
     }
+
+//    ROS_INFO_STREAM(" P = " << p);
 //    Competition::print_parts_to_pick();
 //    ROS_INFO_STREAM("===================Thats all folks!!!!======================");
 }
 
 void Competition::print_parts_to_pick()
 {
+    ROS_INFO_STREAM("Parts in master vector");
     for(int i=0; i < 10;  i++) {
+        ROS_INFO_STREAM("ORder No = " << i);
         for (int j = 0; j < 10; j++) {
+//            ROS_INFO_STREAM("SHipment NO = " << j);
             for (int k = 0; k < 20; k++) {
                 if((master_vector[i][j][k].type == "pulley_part_red") || (master_vector[i][j][k].type == "pulley_part_blue") || (master_vector[i][j][k].type == "pulley_part_green")|| (master_vector[i][j][k].type == "disk_part_blue")|| (master_vector[i][j][k].type == "disk_part_red")|| (master_vector[i][j][k].type == "disk_part_green")|| (master_vector[i][j][k].type == "piston_part_blue")|| (master_vector[i][j][k].type == "piston_part_green")|| (master_vector[i][j][k].type == "piston_part_red")|| (master_vector[i][j][k].type == "gasket_part_blue")|| (master_vector[i][j][k].type == "gasket_part_red")|| (master_vector[i][j][k].type == "gasket_part_green"))
                 {
-                    ROS_INFO_STREAM("Parts in master vector");
                     ROS_INFO_STREAM(master_vector[i][j][k].type);
                 }
             }
@@ -164,6 +181,11 @@ std::array<std::array<part, 20>, 20> Competition::get_parts_from_camera()
 std::vector<std::vector<std::vector<master_struct> > > Competition::get_master_vector()
 {
     return master_vector;
+}
+
+void Competition::delete_completed_order(int i) {
+    received_orders_.erase(received_orders_.begin() + i);
+    ROS_INFO_STREAM("Deleting Order = " << i);
 }
 
 
@@ -191,12 +213,7 @@ void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::C
 
     geometry_msgs::PoseStamped pose_target, pose_rel;
     if(msg->models.size() != 0){
-
-        // ROS_INFO_STREAM("Camera_id : " << cam_idx);
-        // ROS_INFO_STREAM("Logical camera: '" << msg->models.size() << "' objects.");
         int part_no = 0;
-//        ROS_INFO_STREAM("Parts detected by Logical camera " << cam_idx);
-//        ROS_INFO_STREAM(" ");
         for(int i = 0; i<msg->models.size(); i++)
         {
             part_no++;
@@ -206,6 +223,8 @@ void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::C
             topic = otopic.str();
             // ROS_INFO_STREAM(topic);
             ros::Duration timeout(5.0);
+
+
             geometry_msgs::TransformStamped transformStamped;
             pose_rel.header.frame_id = "logical_camera_" + std::to_string(cam_idx) + "_frame";
             pose_rel.pose = msg->models[i].pose;
@@ -220,8 +239,6 @@ void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::C
                 continue;
             }
             tf2::doTransform(pose_rel, pose_target, transformStamped);
-            // ROS_INFO_STREAM("Camera coordinates of " << topic << " no of parts - " << msg->models.size());
-            // ROS_INFO_STREAM(pose_target);
 
             double tx = pose_target.pose.position.x;
             double ty = pose_target.pose.position.y;
@@ -246,6 +263,83 @@ void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::C
             otopic_part << msg->models[i].type << "_" << cam_idx << "_" << part_no;
             topic_part = otopic_part.str();
 
+            if (cam_idx == 15){
+//                ROS_INFO_STREAM("Parts detected by 15 camera = " << msg->models.size());
+                if ((msg->models[i].type == "pulley_part_red") ||
+                    (msg->models[i].type == "pulley_part_blue") ||
+                    (msg->models[i].type == "pulley_part_green") ||
+                    (msg->models[i].type == "disk_part_blue") ||
+                    (msg->models[i].type == "disk_part_red") ||
+                    (msg->models[i].type == "disk_part_green") ||
+                    (msg->models[i].type == "piston_part_blue") ||
+                    (msg->models[i].type == "piston_part_green") ||
+                    (msg->models[i].type == "piston_part_red") ||
+                    (msg->models[i].type == "gasket_part_blue") ||
+                    (msg->models[i].type == "gasket_part_red") ||
+                    (msg->models[i].type == "gasket_part_green")) {
+
+                    parts_from_15_camera[i].type = msg->models[i].type;
+                    parts_from_15_camera[i].pose.position.x = tx;
+                    parts_from_15_camera[i].pose.position.y = ty;
+                    parts_from_15_camera[i].pose.position.z = tz;
+                    parts_from_15_camera[i].pose.orientation.x = pose_target.pose.orientation.x;
+                    parts_from_15_camera[i].pose.orientation.y = pose_target.pose.orientation.y;
+                    parts_from_15_camera[i].pose.orientation.z = pose_target.pose.orientation.z;
+                    parts_from_15_camera[i].pose.orientation.w = pose_target.pose.orientation.w;
+                    parts_from_15_camera[i].faulty = false;
+                    parts_from_15_camera[i].picked = false;
+                    if(msg->models.size() > 0)
+                    {
+//                        ROS_INFO_STREAM("Camera Matrix loaded with conveyor belt part");
+                        conveyor_belt_part_status = true;
+                    }
+
+                }
+            }
+            if (cam_idx == 11){
+                if (!((msg->models[i].type).empty())) {
+                    parts_from_11_camera[i].type = msg->models[i].type;
+                    parts_from_11_camera[i].pose.position.x = tx;
+                    parts_from_11_camera[i].pose.position.y = ty;
+                    parts_from_11_camera[i].pose.position.z = tz;
+                    parts_from_11_camera[i].pose.orientation.x = pose_target.pose.orientation.x;
+                    parts_from_11_camera[i].pose.orientation.y = pose_target.pose.orientation.y;
+                    parts_from_11_camera[i].pose.orientation.z = pose_target.pose.orientation.z;
+                    parts_from_11_camera[i].pose.orientation.w = pose_target.pose.orientation.w;
+                    parts_from_11_camera[i].faulty = false;
+                    parts_from_11_camera[i].picked = false;
+                }
+            }
+            if (cam_idx == 16){
+                if (!((msg->models[i].type).empty())) {
+                    parts_from_16_camera[i].type = msg->models[i].type;
+                    parts_from_16_camera[i].pose.position.x = tx;
+                    parts_from_16_camera[i].pose.position.y = ty;
+                    parts_from_16_camera[i].pose.position.z = tz;
+                    parts_from_16_camera[i].pose.orientation.x = pose_target.pose.orientation.x;
+                    parts_from_16_camera[i].pose.orientation.y = pose_target.pose.orientation.y;
+                    parts_from_16_camera[i].pose.orientation.z = pose_target.pose.orientation.z;
+                    parts_from_16_camera[i].pose.orientation.w = pose_target.pose.orientation.w;
+                    parts_from_16_camera[i].faulty = false;
+                    parts_from_16_camera[i].picked = false;
+                }
+            }
+
+            if (cam_idx == 17){
+                if (!((msg->models[i].type).empty())) {
+                    parts_from_17_camera[i].type = msg->models[i].type;
+                    parts_from_17_camera[i].pose.position.x = tx;
+                    parts_from_17_camera[i].pose.position.y = ty;
+                    parts_from_17_camera[i].pose.position.z = tz;
+                    parts_from_17_camera[i].pose.orientation.x = pose_target.pose.orientation.x;
+                    parts_from_17_camera[i].pose.orientation.y = pose_target.pose.orientation.y;
+                    parts_from_17_camera[i].pose.orientation.z = pose_target.pose.orientation.z;
+                    parts_from_17_camera[i].pose.orientation.w = pose_target.pose.orientation.w;
+                    parts_from_17_camera[i].faulty = false;
+                    parts_from_17_camera[i].picked = false;
+                }
+            }
+
             parts_from_camera[cam_idx][i].type = msg->models[i].type;
             parts_from_camera[cam_idx][i].pose.position.x = tx;
             parts_from_camera[cam_idx][i].pose.position.y = ty;
@@ -256,29 +350,8 @@ void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::C
             parts_from_camera[cam_idx][i].pose.orientation.w = pose_target.pose.orientation.w;
             parts_from_camera[cam_idx][i].faulty = false;
             parts_from_camera[cam_idx][i].picked = false;
-
-
-//            parts_from_camera[i].type = msg->models[i].type;
-//            parts_from_camera[i].pose.position.x = tx;
-//            parts_from_camera[i].pose.position.y = ty;
-//            parts_from_camera[i].pose.position.z = tz;
-//            parts_from_camera[i].pose.orientation.x = pose_target.pose.orientation.x;
-//            parts_from_camera[i].pose.orientation.y = pose_target.pose.orientation.y;
-//            parts_from_camera[i].pose.orientation.z = pose_target.pose.orientation.z;
-//            parts_from_camera[i].pose.orientation.w = pose_target.pose.orientation.w;
-
-
-            // Output the measure
-//            ROS_INFO("'%s' in '%s' frame : X: %.2f Y: %.2f Z: %.2f - R: %.2f P: %.2f Y: %.2f",
-//                     topic.c_str(),
-//                     pose_target.header.frame_id.c_str(),
-//                     tx, ty, tz,
-//                     roll, pitch, yaw);
-
         }
 
-//        ROS_INFO_STREAM(" ");
-//        ROS_INFO_STREAM(" ");
     }
 }
 
@@ -293,9 +366,20 @@ void Competition::competition_state_callback(const std_msgs::String::ConstPtr & 
 }
 
 void Competition::order_callback(const nist_gear::Order::ConstPtr & msg) {
-//    ROS_INFO_STREAM("Received order:\n" << *msg);
+    ROS_INFO_STREAM("New High Priority ordered received");
+    ROS_INFO_STREAM("Received order:\n" << *msg);
     received_orders_.push_back(*msg);
     Competition::pre_kitting();
+}
+
+std::array<part, 20> Competition::get_parts_from_16_camera()
+{
+    return parts_from_16_camera;
+}
+
+std::array<part, 20> Competition::get_parts_from_17_camera()
+{
+    return parts_from_17_camera;
 }
 
 void Competition::quality_control_sensor_1_subscriber_callback(const nist_gear::LogicalCameraImage::ConstPtr & msg)
@@ -310,6 +394,7 @@ void Competition::quality_control_sensor_1_subscriber_callback(const nist_gear::
     else
         faulty_part_agv2.faulty = false;
 }
+
 
 /// Called when a new message is received.
 void Competition::competition_clock_callback(const rosgraph_msgs::Clock::ConstPtr & msg) {

@@ -37,6 +37,7 @@
 #include <trajectory_msgs/JointTrajectory.h>
 
 #include "utils.h"
+#include <unordered_map>
 
 
 class GantryControl {
@@ -67,22 +68,25 @@ class GantryControl {
     geometry_msgs::Pose getTargetWorldPose_right_arm(geometry_msgs::Pose target, std::string agv);
 
     //--preset locations;
-    start start_;
-    bin3 bin3_;
-    agv2 agv2_;
+    start start_, belt_pickup_;
+    bin3 bin3_, bin1_;
+    agv2 agv2_, agv1_;
     agv2_drop agv2_drop_;
     bin13 bin13_;
     bin16 bin16_;
-    shelf5 shelf5_;
+    shelf5 shelf5_, shelf8_w1_, shelf8_w2_, shelf8_w3_, shelf8_w4_,  shelf11_w1_, shelf11_w2_, shelf11_w3_, shelf11_w4_;
 
     waypoint_1 waypoint_1_;
     waypoint_2 waypoint_2_;
     waypoint_3 waypoint_3_;
     waypoint_4 waypoint_4_;
 
-    pose_change pose_change_1, pose_change_2;
-    agv2_flip agv2_flip_;
-    flip_target flip_target_;
+    pose_change pose_change_1_agv1, pose_change_2_agv1,pose_change_1_agv2,pose_change_2_agv2;
+    agv2_flip agv2_flip_,agv1_flip_;
+    flip_target agv2_flip_target_,agv1_flip_target_;
+    std::unordered_map<int, std::vector<PresetLocation>> pickup_locations;
+//    std::unordered_map<int, char> pickup_locations;
+    std::unordered_map<int, char>:: iterator itr;
 
   private:
     std::vector<double> joint_group_positions_;
