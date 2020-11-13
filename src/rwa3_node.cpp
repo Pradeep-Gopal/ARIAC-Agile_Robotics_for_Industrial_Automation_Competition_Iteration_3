@@ -15,6 +15,8 @@
 
 #include <algorithm>
 #include <vector>
+#include <thread>
+#include <chrono>
 
 #include <ros/ros.h>
 
@@ -35,6 +37,26 @@
 #include "gantry_control.h"
 
 #include <tf2/LinearMath/Quaternion.h>
+
+
+void blackoutDetector(Competition * comp){
+    ROS_INFO_STREAM("[blackoutDetector] started");
+    while(comp->run_blackout_detection){
+        if(comp->blackout_breakbeam){
+            comp->blackout_breakbeam = false;
+            comp->blackout = false;
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        }else{
+            comp->blackout = true;
+        }
+    }
+    ROS_INFO_STREAM("[blackoutDetector] ended");
+}
+
+bool isBlackout(Competition &comp){
+    return comp.blackout;
+}
+
 
 int main(int argc, char ** argv) {
     ros::init(argc, argv, "rwa3_node");
@@ -81,10 +103,25 @@ int main(int argc, char ** argv) {
     part_in_tray.pose.orientation.z = 0.0;
     part_in_tray.pose.orientation.w = 1.0;
 
+    std::thread thread(blackoutDetector, &comp);//start blackout detector 
+    for(int i = 0; i < 5; i++){
+        comp.blackout = true;
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        ROS_INFO_STREAM("Blackout: "<< isBlackout(comp));
+    }
     //--Go pick the part
     gantry.pickPart(my_part);
     //--Go place the part
     gantry.placePart(part_in_tray, "agv2");
+    
+    while(isBlackout(comp)){
+        ROS_INFO_STREAM("Blackout: "<< isBlackout(comp));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
+    
+    ROS_INFO_STREAM("Sim done");
+    comp.run_blackout_detection = false;
+    thread.join();
 
     comp.endCompetition();
     spinner.stop();
