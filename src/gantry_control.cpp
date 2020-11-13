@@ -211,6 +211,23 @@ void GantryControl::init() {
     bin1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    shelf_10_11_gap1_.gantry = {0.00,4.48,0.00};
+    shelf_10_11_gap1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf_10_11_gap1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf_10_11_gap2_.gantry = {-11.28,4.48,0.00};
+    shelf_10_11_gap2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf_10_11_gap2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf_4_5_gap1_.gantry = {0.00,-4.48,0.00};
+    shelf_4_5_gap1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf_4_5_gap1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf_4_5_gap2_.gantry = {-11.28,-4.48,0.00};
+    shelf_4_5_gap2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf_4_5_gap2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+
 //    tf2_ros::Buffer tfBuffer;
 //    tf2_ros::TransformListener tfListener(tfBuffer);
 //    ros::Rate rate(10);

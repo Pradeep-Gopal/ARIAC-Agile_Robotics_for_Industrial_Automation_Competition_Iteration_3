@@ -7,7 +7,7 @@
 #include "gantry_control.h"
 #include <string>
 #include <vector>
-
+#include <typeinfo>
 int p =0;
 int camera_no = 0;
 part faulty_part_agv2;
@@ -17,6 +17,8 @@ std::vector<shipment> shipment_vector;
 std::vector<product> product_vector;
 std::vector<pick_and_place> pick_and_place_poses_vector;
 std::array<std::array<part, 20>, 20>  parts_from_camera ;
+std::vector<std::vector<double>> shelf_vector(9,std::vector<double>(3));
+//std::array<std::array<double, 3>, 3>  gaps_distance;
 std::vector<std::vector<std::vector<master_struct> > > master_vector (10,std::vector<std::vector<master_struct> >(10,std::vector <master_struct>(20)));
 
 ////////////////////////////////////////////////////
@@ -25,6 +27,7 @@ Competition::Competition(ros::NodeHandle & node): current_score_(0)
 {
   node_ = node;
 }
+
 
 void Competition::init() {
   // Subscribe to the '/ariac/current_score' topic.
@@ -178,6 +181,10 @@ std::array<std::array<part, 20>, 20> Competition::get_parts_from_camera()
     return parts_from_camera;
 }
 
+
+std::vector<std::vector<double>> Competition::get_shelf_vector(){
+    return shelf_vector;
+}
 std::vector<std::vector<std::vector<master_struct> > > Competition::get_master_vector()
 {
     return master_vector;
@@ -201,6 +208,79 @@ part Competition::get_quality_sensor_status(){
     return faulty_part_agv2;
 }
 
+void Competition::shelf_callback(std::string shelf_name)
+{
+//    ros::init(argc, argv, "getShelfDistances");
+//    ros::NodeHandle node;
+    tf::TransformListener listener;
+    ros::Rate rate(10.0);
+    while (node_.ok()) {
+        tf::StampedTransform transform;
+        try {
+            ROS_INFO_STREAM(shelf_name);
+            listener.lookupTransform("/world", shelf_name,
+                                     ros::Time(0), transform);
+            tf::Transform tf(transform.getBasis(), transform.getOrigin());
+            tf::Vector3 tfVec;
+            tf::Matrix3x3 tfR;
+            tf::Quaternion quat;
+            tfVec = tf.getOrigin();
+            ROS_INFO_STREAM(double(tfVec.getX()));
+            if (shelf_name == "/shelf3_frame"){
+                shelf_vector[0][0] = double(tfVec.getX());
+                shelf_vector[0][1] = double(tfVec.getY());
+                shelf_vector[0][2] = double(tfVec.getZ());
+            }
+            if (shelf_name == "/shelf4_frame"){
+                shelf_vector[1][0] = double(tfVec.getX());
+                shelf_vector[1][1] = double(tfVec.getY());
+                shelf_vector[1][2] = double(tfVec.getZ());
+            }
+            if (shelf_name == "/shelf5_frame"){
+                shelf_vector[2][0] = double(tfVec.getX());
+                shelf_vector[2][1] = double(tfVec.getY());
+                shelf_vector[2][2] = double(tfVec.getZ());
+            }
+            if (shelf_name == "/shelf6_frame"){
+                shelf_vector[3][0] = double(tfVec.getX());
+                shelf_vector[3][1] = double(tfVec.getY());
+                shelf_vector[3][2] = double(tfVec.getZ());
+            }
+            if (shelf_name == "/shelf7_frame"){
+                shelf_vector[4][0] = double(tfVec.getX());
+                shelf_vector[4][1] = double(tfVec.getY());
+                shelf_vector[4][2] = double(tfVec.getZ());
+            }
+            if (shelf_name == "/shelf8_frame"){
+                shelf_vector[5][0] = double(tfVec.getX());
+                shelf_vector[5][1] = double(tfVec.getY());
+                shelf_vector[5][2] = double(tfVec.getZ());
+            }
+            if (shelf_name == "/shelf9_frame"){
+                shelf_vector[6][0] = double(tfVec.getX());
+                shelf_vector[6][1] = double(tfVec.getY());
+                shelf_vector[6][2] = double(tfVec.getZ());
+            }
+            if (shelf_name == "/shelf10_frame"){
+                shelf_vector[7][0] = double(tfVec.getX());
+                shelf_vector[7][1] = double(tfVec.getY());
+                shelf_vector[7][2] = double(tfVec.getZ());
+            }
+            if (shelf_name == "/shelf11_frame"){
+                shelf_vector[8][0] = double(tfVec.getX());
+                shelf_vector[8][1] = double(tfVec.getY());
+                shelf_vector[8][2] = double(tfVec.getZ());
+            }
+            ROS_INFO_STREAM(tfVec.getX() << "," << tfVec.getY() << "," << tfVec.getZ());
+            break;
+
+        }
+        catch (tf::TransformException ex) {
+            ROS_ERROR("%s", ex.what());
+            ros::Duration(1.0).sleep();
+        }
+    }
+}
 
 void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::ConstPtr & msg, int cam_idx)
 {
