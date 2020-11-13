@@ -24,6 +24,49 @@ sensors:
       xyz: [0.267540, 3.872861, 0.925166]
       rpy: [0, 0, -3.14]
 
+  breakbeam_1:
+    type: break_beam
+    pose:
+      xyz: [ -2.449966, 0.585950, 0.21 ]
+      rpy: [ 0, 0, 1.54 ]
+
+  breakbeam_2:
+    type: break_beam
+    pose:
+      xyz: [ -7.049424, 0.585950, 0.21]
+      rpy: [ 0, 0, 1.54 ]
+
+  breakbeam_3:
+    type: break_beam
+    pose:
+      xyz: [ -12.447161, 0.585950, 0.21]
+      rpy: [ 0, 0, 1.54 ]
+  breakbeam_4:
+    type: break_beam
+    pose:
+      xyz: [ -13.4, 0.585950, 0.21]
+      rpy: [ 0, 0, 1.54 ]
+  breakbeam_5:
+    type: break_beam
+    pose:
+      xyz: [ -16.044237, 0.585950, 0.21 ]
+      rpy: [ 0, 0, 1.54 ]
+  breakbeam_6:
+    type: break_beam
+    pose:
+      xyz: [ -2.449966, -0.657948, 0.21 ]
+      rpy: [ 0, 0,-1.54 ]
+  breakbeam_7:
+    type: break_beam
+    pose:
+      xyz: [ -11.283957, -0.657948, 0.21]
+      rpy: [ 0, 0,-1.54 ]
+  breakbeam_8:
+    type: break_beam
+    pose:
+      xyz: [ -16.044237, -0.657948, 0.21 ]
+      rpy: [ 0, 0,-1.54 ]
+
   logical_camera_1: # left_topshelf_1
     type: logical_camera
     pose:
