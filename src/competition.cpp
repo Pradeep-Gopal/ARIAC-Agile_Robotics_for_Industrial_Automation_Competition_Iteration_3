@@ -293,7 +293,6 @@ void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::C
 //                        ROS_INFO_STREAM("Camera Matrix loaded with conveyor belt part");
                         conveyor_belt_part_status = true;
                     }
-
                 }
             }
             if (cam_idx == 11){
