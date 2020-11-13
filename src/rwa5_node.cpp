@@ -73,11 +73,12 @@ int main(int argc, char** argv) {
     for(auto c: shelf_vector)
         comp.shelf_callback(c);
     shelf_vector_comp = comp.get_shelf_vector();
-    ROS_INFO_STREAM("-----------------------");
-    for (int i = 0; i < 9; i++) {
-        ROS_INFO_STREAM(shelf_vector_comp[i][0]);
-        ROS_INFO_STREAM(shelf_vector_comp[i][1]);
-        ROS_INFO_STREAM(shelf_vector_comp[i][2]);
+    ROS_INFO_STREAM("Distance between the shelves");
+    for (int i = 0; i <=7 ; i++) {
+        if (5<=(abs(shelf_vector_comp[i][0] - shelf_vector_comp[i+1][0])) and (abs(shelf_vector_comp[i][0] - shelf_vector_comp[i+1][0]))<=7){
+            ROS_INFO_STREAM("Gaps between shelves"<<i+3<<" and "<<i+4<<" "<<abs(shelf_vector_comp[i][0] - shelf_vector_comp[i+1][0]));
+        }
     }
+
     return 0;
 }

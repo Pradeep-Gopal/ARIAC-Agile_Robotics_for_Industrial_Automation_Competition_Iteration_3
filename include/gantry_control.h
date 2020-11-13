@@ -75,6 +75,7 @@ class GantryControl {
     bin13 bin13_;
     bin16 bin16_;
     shelf5 shelf5_, shelf8_w1_, shelf8_w2_, shelf8_w3_, shelf8_w4_,  shelf11_w1_, shelf11_w2_, shelf11_w3_, shelf11_w4_;
+    shelf_gap shelf_10_11_gap1_,shelf_10_11_gap2_,shelf_4_5_gap1_,shelf_4_5_gap2_;
 
     waypoint_1 waypoint_1_;
     waypoint_2 waypoint_2_;
