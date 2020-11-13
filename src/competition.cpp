@@ -28,12 +28,20 @@ void Competition::init() {
     orders_subscriber_ = node_.subscribe(
             "/ariac/orders", 10, &Competition::order_callback, this);
 
+     ROS_INFO("Subscribe to the /ariac/breakbeam_1");
+    breakbeam_sensor_1_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_1", 10, &Competition::breakbeam_sensor_blackout_callback, this);
+
   startCompetition();
 
   init_.total_time += ros::Time::now().toSec() - time_called;
 
 }
 
+void Competition::breakbeam_sensor_blackout_callback(const nist_gear::Proximity::ConstPtr & msg){
+    //ROS_INFO_STREAM("Blackout Breakbeam got message: "<<msg->object_detected);
+    blackout_breakbeam  = msg->object_detected;
+}
 
 /// Called when a new message is received.
 void Competition::competition_state_callback(const std_msgs::String::ConstPtr & msg) {
