@@ -9,6 +9,7 @@
 #include <std_msgs/String.h>
 #include <rosgraph_msgs/Clock.h>
 #include <nist_gear/Order.h>
+#include <nist_gear/Proximity.h>
 
 #include "utils.h"
 
@@ -35,6 +36,10 @@ public:
     std::string getCompetitionState();
     stats getStats(std::string function);
 
+    void breakbeam_sensor_blackout_callback(const nist_gear::Proximity::ConstPtr & msg);
+    bool blackout_breakbeam = true;
+    bool blackout = false;
+    bool run_blackout_detection = true;
 private:
     ros::NodeHandle node_;
 
@@ -48,6 +53,8 @@ private:
     ros::Subscriber competition_clock_subscriber_;
     ros::Subscriber orders_subscriber_;
     std::vector<nist_gear::Order> received_orders_;
+
+    ros::Subscriber breakbeam_sensor_1_subscriber_;
 
     // to collect statistics
     stats init_;
