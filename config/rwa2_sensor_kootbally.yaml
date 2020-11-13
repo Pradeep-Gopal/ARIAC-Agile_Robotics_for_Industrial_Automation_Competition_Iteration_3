@@ -35,3 +35,9 @@ sensors:
     pose:
       xyz: [-3.25 - 6*2.04, 0, 2.49]
       rpy: [0, 'pi/2', 'pi/2']
+ 
+  breakbeam_1: # to detect sensor blackouts
+    type: break_beam
+    pose:
+      xyz: [.6, 1.8, .9]
+      rpy: [0, 0, -3.14]
