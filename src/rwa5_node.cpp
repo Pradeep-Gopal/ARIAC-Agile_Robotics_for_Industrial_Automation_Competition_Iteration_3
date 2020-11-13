@@ -80,5 +80,16 @@ int main(int argc, char** argv) {
         }
     }
 
+    
+    while(true){
+        if (comp.breakbeam_conveyor_belt_part_status == false){
+            ROS_INFO_STREAM("Break beam sensor 3 not triggered, waiting for triggering");
+        }
+        else{
+            ROS_INFO_STREAM("triggering");
+        }
+    }
+
+
     return 0;
 }

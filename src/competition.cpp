@@ -52,9 +52,9 @@ void Competition::init() {
     quality_control_sensor_1_subscriber_ = node_.subscribe(
             "/ariac/quality_control_sensor_1", 10, &Competition::quality_control_sensor_1_subscriber_callback, this);
 
-    ROS_INFO("Subscribe to the /ariac/breakbeam_0");
+    ROS_INFO("Subscribe to the /ariac/breakbeam_3");
     breakbeam_sensor_1_subscriber_ = node_.subscribe(
-            "/ariac/breakbeam_0", 10, &Competition::breakbeam_sensor_1_callback, this);
+            "/ariac/breakbeam_3", 10, &Competition::breakbeam_sensor_1_callback, this);
 
 
   startCompetition();
@@ -62,7 +62,6 @@ void Competition::init() {
   init_.total_time += ros::Time::now().toSec() - time_called;
 
 }
-
 void Competition::breakbeam_sensor_1_callback(const nist_gear::Proximity::ConstPtr & msg){
     breakbeam_conveyor_belt_part_status = msg->object_detected;
 }
