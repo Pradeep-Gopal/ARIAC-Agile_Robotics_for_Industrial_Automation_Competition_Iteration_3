@@ -75,7 +75,11 @@ void GantryControl::init() {
     shelf8_w4_.left_arm = {-2.79, -PI/4, PI/2, -PI/4, -1.39626, 0};
     shelf8_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+<<<<<<< HEAD
     // Blue Pulley part on shelf 8
+=======
+    //Blue Pulley part on shelf 8
+>>>>>>> Pradeep_Gopal
     shelf8a_w1_.gantry = {0.0, 4.48, 0};
     shelf8a_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -93,11 +97,19 @@ void GantryControl::init() {
     shelf8a_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     shelf8a_w5_.gantry = {-15, 1.6, 0.0};
+<<<<<<< HEAD
     shelf8a_w5_.left_arm = {PI/2, -PI/4, PI/2, -PI/4, 3.34, 0};
     shelf8a_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     shelf8a_w6_.gantry = {-16.8, 1.4, 0.0};
     shelf8a_w6_.left_arm = {PI/2, -PI/4, PI/2, -PI/4, 3.34, 0};
+=======
+    shelf8a_w5_.left_arm = {1.78, -PI/4, PI/2, -PI/4, 3.34, 0};
+    shelf8a_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8a_w6_.gantry = {-14.8, 1.2, 0.0};
+    shelf8a_w6_.left_arm = {1.78, -PI/4, PI/2, -PI/4, 3.34, 0};
+>>>>>>> Pradeep_Gopal
     shelf8a_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //shelf 4
