@@ -598,6 +598,7 @@ int main(int argc, char ** argv) {
                                 auto q = gantry.pickup_locations.find(l);
                                 for (auto y: q->second){
                                     gantry.goToPresetLocation(y);
+                                    ros::Duration timeout(0.5);
                                 }
 
                                 gantry.pickPart(parts_from_camera_main[l][m]);
@@ -605,6 +606,7 @@ int main(int argc, char ** argv) {
 
                                 for (auto it = q->second.rbegin(); it != q->second.rend(); it++){
                                     gantry.goToPresetLocation(*it);
+                                    ros::Duration timeout(0.5);
                                 }
 
                                 ROS_INFO_STREAM("AGVVVVVVVVVVVVVVVVVVVVVVV");
@@ -647,7 +649,7 @@ int main(int argc, char ** argv) {
                                     faulty_part.type = parts_from_camera_main[l][m].type;
                                     faulty_part.pose.position.x = faulty_part.pose.position.x;
                                     faulty_part.pose.position.y = faulty_part.pose.position.y;
-                                    faulty_part.pose.position.z = faulty_part.pose.position.z + 0.0365;
+                                    faulty_part.pose.position.z = faulty_part.pose.position.z + 0.036525;
                                     faulty_part.pose.orientation.x = faulty_part.pose.orientation.x;
                                     faulty_part.pose.orientation.y = faulty_part.pose.orientation.y;
                                     faulty_part.pose.orientation.z = faulty_part.pose.orientation.z;
@@ -1098,6 +1100,8 @@ int main(int argc, char ** argv) {
         temp = i;
         goto LOOP3;
     }
+    submitOrder("agv1", "order_0_shipment_0");
+    submitOrder("agv2", "order_0_shipment_1");
 
 //    submitOrder(2, "order_0_shipment_0");
     ROS_INFO_STREAM("Mangathaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa DaWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
