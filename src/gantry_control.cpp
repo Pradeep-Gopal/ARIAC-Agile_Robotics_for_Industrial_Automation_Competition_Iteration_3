@@ -230,6 +230,11 @@ void GantryControl::init() {
     agv2_drop_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv2_drop_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    //    Agv1 faulty part Drop location
+    agv1_drop_.gantry = {1, -6.9, PI};
+    agv1_drop_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    agv1_drop_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
     // pose change wavepoints
 
     pose_change_1_agv1.gantry = {0.0,-5,PI};
@@ -658,9 +663,9 @@ bool GantryControl::pickPart(part part){
         }
         else {
             ROS_INFO_STREAM("[Gripper] = object not attached");
-            int max_attempts{5};
+            int attempt{0}, max_attempts{5};
             int current_attempt{0};
-            while(!state.attached) {
+            while(!state.attached || (attempt != max_attempts)) {
                 ROS_INFO_STREAM("Attached status = " << state.attached);
                 left_arm_group_.setPoseTarget(currentPose);
                 left_arm_group_.move();
@@ -668,10 +673,12 @@ bool GantryControl::pickPart(part part){
                 left_arm_group_.setPoseTarget(part.pose);
                 left_arm_group_.move();
                 activateGripper("left_arm");
+                auto state = getGripperState("left_arm");
                 if(state.attached)
                 {
                     return true;
                 }
+                attempt += 1;
             }
         }
     }

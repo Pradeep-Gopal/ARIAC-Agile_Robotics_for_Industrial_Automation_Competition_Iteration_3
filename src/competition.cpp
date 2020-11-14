@@ -11,6 +11,7 @@
 int p =0;
 int camera_no = 0;
 part faulty_part_agv2;
+part faulty_part_agv1;
 
 std::vector<order> orders_vector;
 std::vector<shipment> shipment_vector;
@@ -45,9 +46,13 @@ void Competition::init() {
     orders_subscriber_ = node_.subscribe(
             "/ariac/orders", 10, &Competition::order_callback, this);
 
-    ROS_INFO("Subscribe to the /ariac/quality_control_sensor_1");
+    ROS_INFO("Subscribe to the /ariac/quality_control_sensor_1"); //AGV2
     quality_control_sensor_1_subscriber_ = node_.subscribe(
             "/ariac/quality_control_sensor_1", 10, &Competition::quality_control_sensor_1_subscriber_callback, this);
+
+    ROS_INFO("Subscribe to the /ariac/quality_control_sensor_2"); //AGV1
+    quality_control_sensor_1_subscriber_ = node_.subscribe(
+            "/ariac/quality_control_sensor_2", 10, &Competition::quality_control_sensor_2_subscriber_callback, this);
 
     ROS_INFO("Subscribe to the /ariac/breakbeam_0");
     breakbeam_sensor_1_subscriber_ = node_.subscribe(
@@ -197,8 +202,12 @@ void Competition::delete_completed_order(int i) {
 //            ROS_INFO_STREAM(col.type);,
 //}
 
-part Competition::get_quality_sensor_status(){
+part Competition::get_quality_sensor_status_agv2(){
     return faulty_part_agv2;
+}
+
+part Competition::get_quality_sensor_status_agv1(){
+    return faulty_part_agv1;
 }
 
 
@@ -393,6 +402,19 @@ void Competition::quality_control_sensor_1_subscriber_callback(const nist_gear::
     }
     else
         faulty_part_agv2.faulty = false;
+}
+
+void Competition::quality_control_sensor_2_subscriber_callback(const nist_gear::LogicalCameraImage::ConstPtr & msg)
+{
+    if(msg->models.size() != 0) {
+        for (int i = 0; i < msg->models.size(); i++) {
+//            ROS_INFO_STREAM("Faulty Part Detected from Callback");
+            faulty_part_agv1.pose = msg->models[i].pose;
+            faulty_part_agv1.faulty = true;
+        }
+    }
+    else
+        faulty_part_agv1.faulty = false;
 }
 
 

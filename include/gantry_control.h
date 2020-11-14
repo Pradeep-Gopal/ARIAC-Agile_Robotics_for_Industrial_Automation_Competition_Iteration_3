@@ -72,7 +72,7 @@ class GantryControl {
     start start_, belt_pickup_;
     bin3 bin3_, bin1_;
     agv2 agv2_, agv1_;
-    agv2_drop agv2_drop_;
+    agv2_drop agv2_drop_, agv1_drop_;
     bin13 bin13_;
     bin16 bin16_;
     shelf5 shelf5_, shelf8_w1_, shelf8_w2_, shelf8_w3_, shelf8_w4_, shelf8a_w1_, shelf8a_w2_, shelf8a_w3_, shelf8a_w4_, shelf8a_w5_, shelf8a_w6_,shelf11_w1_, shelf11_w2_, shelf11_w3_, shelf11_w4_;
