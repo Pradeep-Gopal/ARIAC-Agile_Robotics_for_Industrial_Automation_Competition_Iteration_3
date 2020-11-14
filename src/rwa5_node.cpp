@@ -59,7 +59,8 @@ int main(int argc, char** argv) {
     ros::NodeHandle node;
     ros::AsyncSpinner spinner(8);
     spinner.start();
-    std::vector<std::string> shelf_vector;
+
+    std::vector <std::string> shelf_vector;
     shelf_vector.push_back("/shelf3_frame");
     shelf_vector.push_back("/shelf4_frame");
     shelf_vector.push_back("/shelf5_frame");
@@ -70,8 +71,10 @@ int main(int argc, char** argv) {
     shelf_vector.push_back("/shelf10_frame");
     shelf_vector.push_back("/shelf11_frame");
     Competition comp(node);
-    for(auto c: shelf_vector)
-        comp.shelf_callback(c);
+    comp.init();
+    for (auto c: shelf_vector) {
+    comp.shelf_callback(c);
+    }
     shelf_vector_comp = comp.get_shelf_vector();
     ROS_INFO_STREAM("Distance between the shelves");
     for (int i = 0; i <=7 ; i++) {
@@ -79,13 +82,36 @@ int main(int argc, char** argv) {
             ROS_INFO_STREAM("Gaps between shelves"<<i+3<<" and "<<i+4<<" "<<abs(shelf_vector_comp[i][0] - shelf_vector_comp[i+1][0]));
         }
     }
+    bool breakbeam_3_triggered = false;
+    ros::Time time_3;
+    bool breakbeam_4_triggered = false;
+    ros::Time time_4;
+    while (true){
+        if (comp.breakbeam_conveyor_belt_part_status_3 == true and  breakbeam_3_triggered == false){
+            ROS_INFO_STREAM("3 TRIGGERED ");
+            time_3 = ros::Time::now();
+//            ROS_INFO_STREAM(time_3);
+            breakbeam_3_triggered = true;
+        }
+        if (comp.breakbeam_conveyor_belt_part_status_4 == true and  breakbeam_4_triggered == false){
+            ROS_INFO_STREAM("4 TRIGGERED ");
+            time_4 = ros::Time::now();
+//            ROS_INFO_STREAM(time_4);
+            breakbeam_4_triggered = true;
+        }
 
-    std :: string return_statement;
-    while(true){
-        ROS_INFO_STREAM(comp.breakbeam_conveyor_belt_part_status);
-//        comp.get_breakbeam_conveyor_belt_part_status_string();
+        if(breakbeam_3_triggered == true and breakbeam_4_triggered == true){
+            ROS_INFO_STREAM("BOTH TRIGGERED");
+            ROS_INFO_STREAM(time_3);
+            ROS_INFO_STREAM(time_4);
+            ros::Duration diff = time_4 - time_3;
+            ROS_INFO_STREAM("diff is : "<<diff);
+            ros::Duration diff2 = time_3 - time_4;
+            ROS_INFO_STREAM("diff2 is : "<<diff2);
+
+            break;
+        }
+
     }
-
-
     return 0;
 }

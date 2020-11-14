@@ -36,7 +36,6 @@ public:
     void competition_state_callback(const std_msgs::String::ConstPtr & msg);
     void logical_camera_callback(const nist_gear::LogicalCameraImage::ConstPtr & msg, int cam_idx);
     void quality_control_sensor_1_subscriber_callback(const nist_gear::LogicalCameraImage::ConstPtr & msg);
-    void breakbeam_sensor_1_callback(const nist_gear::Proximity::ConstPtr & msg);
     std::array<std::array<part, 20>, 20> get_parts_from_camera();
     part get_quality_sensor_status();
     std::vector<std::vector<std::vector<master_struct> > > get_master_vector();
@@ -62,10 +61,30 @@ public:
     std::array<part, 20> parts_from_16_camera;
     std::array<part, 20> parts_from_17_camera;
     bool conveyor_belt_part_status = false;
-    bool breakbeam_conveyor_belt_part_status = false;
-    void get_breakbeam_conveyor_belt_part_status_string();
-    void shelf_callback(std::string);
 
+    void breakbeam_sensor_0_callback(const nist_gear::Proximity::ConstPtr & msg);
+    void breakbeam_sensor_1_callback(const nist_gear::Proximity::ConstPtr & msg);
+    void breakbeam_sensor_2_callback(const nist_gear::Proximity::ConstPtr & msg);
+    void breakbeam_sensor_3_callback(const nist_gear::Proximity::ConstPtr & msg);
+    void breakbeam_sensor_4_callback(const nist_gear::Proximity::ConstPtr & msg);
+    void breakbeam_sensor_5_callback(const nist_gear::Proximity::ConstPtr & msg);
+    void breakbeam_sensor_6_callback(const nist_gear::Proximity::ConstPtr & msg);
+    void breakbeam_sensor_7_callback(const nist_gear::Proximity::ConstPtr & msg);
+    void breakbeam_sensor_8_callback(const nist_gear::Proximity::ConstPtr & msg);
+    bool breakbeam_conveyor_belt_part_status_0= false;
+    bool breakbeam_conveyor_belt_part_status_1= false;
+    bool breakbeam_conveyor_belt_part_status_2= false;
+    bool breakbeam_conveyor_belt_part_status_3= false;
+    bool breakbeam_conveyor_belt_part_status_4= false;
+    bool breakbeam_conveyor_belt_part_status_5= false;
+    bool breakbeam_conveyor_belt_part_status_6= false;
+    bool breakbeam_conveyor_belt_part_status_7= false;
+    bool breakbeam_conveyor_belt_part_status_8= false;
+
+    void shelf_callback(std::string);
+    int count = 0;
+
+    ros::Time time_3;
 private:
     ros::NodeHandle node_;
 
@@ -79,9 +98,20 @@ private:
     ros::Subscriber competition_clock_subscriber_;
     ros::Subscriber orders_subscriber_;
     ros::Subscriber quality_control_sensor_1_subscriber_;
-    ros::Subscriber breakbeam_sensor_1_subscriber_;
     std::vector<nist_gear::Order> received_orders_;
 
+    //subscribers
+
+
+    ros::Subscriber breakbeam_sensor_0_subscriber_;
+    ros::Subscriber breakbeam_sensor_1_subscriber_;
+    ros::Subscriber breakbeam_sensor_2_subscriber_;
+    ros::Subscriber breakbeam_sensor_3_subscriber_;
+    ros::Subscriber breakbeam_sensor_4_subscriber_;
+    ros::Subscriber breakbeam_sensor_5_subscriber_;
+    ros::Subscriber breakbeam_sensor_6_subscriber_;
+    ros::Subscriber breakbeam_sensor_7_subscriber_;
+    ros::Subscriber breakbeam_sensor_8_subscriber_;
     // to collect statistics
     stats init_;
 };

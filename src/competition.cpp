@@ -52,9 +52,43 @@ void Competition::init() {
     quality_control_sensor_1_subscriber_ = node_.subscribe(
             "/ariac/quality_control_sensor_1", 10, &Competition::quality_control_sensor_1_subscriber_callback, this);
 
+
+    ROS_INFO("Subscribe to the /ariac/breakbeam_0");
+    breakbeam_sensor_0_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_0", 10, &Competition::breakbeam_sensor_0_callback, this);
+
     ROS_INFO("Subscribe to the /ariac/breakbeam_1");
     breakbeam_sensor_1_subscriber_ = node_.subscribe(
             "/ariac/breakbeam_1", 10, &Competition::breakbeam_sensor_1_callback, this);
+
+    ROS_INFO("Subscribe to the /ariac/breakbeam_2");
+    breakbeam_sensor_2_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_2", 10, &Competition::breakbeam_sensor_2_callback, this);
+
+    ROS_INFO("Subscribe to the /ariac/breakbeam_3");
+    breakbeam_sensor_3_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_3", 10, &Competition::breakbeam_sensor_3_callback, this);
+
+    ROS_INFO("Subscribe to the /ariac/breakbeam_4");
+    breakbeam_sensor_4_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_4", 10, &Competition::breakbeam_sensor_4_callback, this);
+
+    ROS_INFO("Subscribe to the /ariac/breakbeam_5");
+    breakbeam_sensor_5_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_5", 10, &Competition::breakbeam_sensor_5_callback, this);
+
+    ROS_INFO("Subscribe to the /ariac/breakbeam_6");
+    breakbeam_sensor_6_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_6", 10, &Competition::breakbeam_sensor_6_callback, this);
+
+    ROS_INFO("Subscribe to the /ariac/breakbeam_7");
+    breakbeam_sensor_7_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_7", 10, &Competition::breakbeam_sensor_7_callback, this);
+
+    ROS_INFO("Subscribe to the /ariac/breakbeam_8");
+    breakbeam_sensor_8_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_8", 10, &Competition::breakbeam_sensor_8_callback, this);
+
 
 
   startCompetition();
@@ -62,8 +96,42 @@ void Competition::init() {
   init_.total_time += ros::Time::now().toSec() - time_called;
 
 }
+void Competition::breakbeam_sensor_0_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_conveyor_belt_part_status_0 = msg->object_detected;
+}
+
 void Competition::breakbeam_sensor_1_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_conveyor_belt_part_status = msg->object_detected;
+    breakbeam_conveyor_belt_part_status_1 = msg->object_detected;
+}
+
+void Competition::breakbeam_sensor_2_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_conveyor_belt_part_status_2 = msg->object_detected;
+}
+
+void Competition::breakbeam_sensor_3_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_conveyor_belt_part_status_3 = msg->object_detected;
+//    time_3 = msg->header.stamp.nsecs;
+}
+
+void Competition::breakbeam_sensor_4_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_conveyor_belt_part_status_4 = msg->object_detected;
+}
+
+
+void Competition::breakbeam_sensor_5_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_conveyor_belt_part_status_5 = msg->object_detected;
+}
+
+void Competition::breakbeam_sensor_6_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_conveyor_belt_part_status_6 = msg->object_detected;
+}
+
+void Competition::breakbeam_sensor_7_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_conveyor_belt_part_status_7 = msg->object_detected;
+}
+
+void Competition::breakbeam_sensor_8_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_conveyor_belt_part_status_8 = msg->object_detected;
 }
 
 void Competition::setter_delivered(int i, int j, int k)
@@ -178,11 +246,6 @@ void Competition::print_parts_to_pick()
 std::array<std::array<part, 20>, 20> Competition::get_parts_from_camera()
 {
     return parts_from_camera;
-}
-
-void Competition::get_breakbeam_conveyor_belt_part_status_string(){
-    std::boolalpha 
-    ROS_INFO_STREAM(std::boolalpha<<breakbeam_conveyor_belt_part_status);
 }
 
 std::vector<std::vector<double>> Competition::get_shelf_vector(){
