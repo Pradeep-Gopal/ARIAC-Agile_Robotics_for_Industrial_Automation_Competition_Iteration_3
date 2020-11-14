@@ -75,21 +75,30 @@ void GantryControl::init() {
     shelf8_w4_.left_arm = {-2.79, -PI/4, PI/2, -PI/4, -1.39626, 0};
     shelf8_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w1_.gantry = {0.0,-1.6,0};
+    // Blue Pulley part on shelf 8
+    shelf8a_w1_.gantry = {0.0, 4.48, 0};
     shelf8a_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w2_.gantry = {-14.5,-1.6,0};
+    shelf8a_w2_.gantry = {-11.4, 4.48,0};
     shelf8a_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w3_.gantry = {-14.5, -1.6, 0.0};
-    shelf8a_w3_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8a_w3_.gantry = {-11.4, 1.6, 0.0};
+    shelf8a_w3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w4_.gantry = {-14.5, -1.2, 0.0};
-    shelf8a_w4_.left_arm = {-2.79, -PI/4, PI/2, -PI/4, -1.39626, 0};
+    shelf8a_w4_.gantry = {-15, 1.6, 0.0};
+    shelf8a_w4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8a_w5_.gantry = {-15, 1.6, 0.0};
+    shelf8a_w5_.left_arm = {PI/2, -PI/4, PI/2, -PI/4, 3.34, 0};
+    shelf8a_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8a_w6_.gantry = {-16.8, 1.4, 0.0};
+    shelf8a_w6_.left_arm = {PI/2, -PI/4, PI/2, -PI/4, 3.34, 0};
+    shelf8a_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //shelf 4
     int cam = 4;
@@ -101,12 +110,13 @@ void GantryControl::init() {
     pickup_locations[cam] = waypoints;
 
     cam = 3;
-//    std::vector<PresetLocation> waypoints;
     waypoints.clear();
     waypoints.push_back(shelf8a_w1_);
     waypoints.push_back(shelf8a_w2_);
     waypoints.push_back(shelf8a_w3_);
     waypoints.push_back(shelf8a_w4_);
+    waypoints.push_back(shelf8a_w5_);
+    waypoints.push_back(shelf8a_w6_);
     pickup_locations[cam] = waypoints;
 
 
@@ -726,7 +736,10 @@ void GantryControl::placePart(part part, std::string agv){
 
 //    target_yaw =  -(final_yaw - (initial_yaw - 3.2) + 3.14) - 2.36; //Rwa4 working code
 
-    target_yaw =  final_yaw - (initial_yaw + 3.14) - 3.14;
+    if(initial_yaw < 0)
+        target_yaw =  -(final_yaw - (initial_yaw + 3.14) - 3.14 - 0.633); //RWA5 Green Gasket picking
+    else
+        target_yaw =  -(final_yaw - (initial_yaw - 3.2) + 3.14) - 2.36;
 
     auto final_pose_ = ToQuaternion(target_roll, target_pitch, target_yaw);
     final_pose.orientation.x = final_pose_.x;
