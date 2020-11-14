@@ -82,7 +82,8 @@ int main(int argc, char** argv) {
 
     std :: string return_statement;
     while(true){
-        comp.get_breakbeam_conveyor_belt_part_status_string();
+        ROS_INFO_STREAM(comp.breakbeam_conveyor_belt_part_status);
+//        comp.get_breakbeam_conveyor_belt_part_status_string();
     }
 
 
