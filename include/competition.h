@@ -63,7 +63,7 @@ public:
     std::array<part, 20> parts_from_17_camera;
     bool conveyor_belt_part_status = false;
     bool breakbeam_conveyor_belt_part_status = false;
-
+    void get_breakbeam_conveyor_belt_part_status_string();
     void shelf_callback(std::string);
 
 private:

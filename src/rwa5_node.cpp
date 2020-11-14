@@ -80,14 +80,9 @@ int main(int argc, char** argv) {
         }
     }
 
-    
+    std :: string return_statement;
     while(true){
-        if (comp.breakbeam_conveyor_belt_part_status == false){
-            ROS_INFO_STREAM("Break beam sensor 3 not triggered, waiting for triggering");
-        }
-        else{
-            ROS_INFO_STREAM("triggering");
-        }
+        comp.get_breakbeam_conveyor_belt_part_status_string();
     }
 
 

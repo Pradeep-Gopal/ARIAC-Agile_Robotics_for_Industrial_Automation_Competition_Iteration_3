@@ -52,9 +52,9 @@ void Competition::init() {
     quality_control_sensor_1_subscriber_ = node_.subscribe(
             "/ariac/quality_control_sensor_1", 10, &Competition::quality_control_sensor_1_subscriber_callback, this);
 
-    ROS_INFO("Subscribe to the /ariac/breakbeam_3");
+    ROS_INFO("Subscribe to the /ariac/breakbeam_1");
     breakbeam_sensor_1_subscriber_ = node_.subscribe(
-            "/ariac/breakbeam_3", 10, &Competition::breakbeam_sensor_1_callback, this);
+            "/ariac/breakbeam_1", 10, &Competition::breakbeam_sensor_1_callback, this);
 
 
   startCompetition();
@@ -180,6 +180,10 @@ std::array<std::array<part, 20>, 20> Competition::get_parts_from_camera()
     return parts_from_camera;
 }
 
+void Competition::get_breakbeam_conveyor_belt_part_status_string(){
+    std::boolalpha 
+    ROS_INFO_STREAM(std::boolalpha<<breakbeam_conveyor_belt_part_status);
+}
 
 std::vector<std::vector<double>> Competition::get_shelf_vector(){
     return shelf_vector;
