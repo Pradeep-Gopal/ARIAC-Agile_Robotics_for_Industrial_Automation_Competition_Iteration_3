@@ -352,46 +352,21 @@ int main(int argc, char ** argv) {
 
     parts_from_camera_main = comp.get_parts_from_camera();
     master_vector_main = comp.get_master_vector();
-
-
-//    ROS_INFO_STREAM("CHECKING FOR HUMAN IN AISLE 1");
-//    bool breakbeam_1_triggered = false;
-//    bool breakbeam_5_triggered = false;
-//    bool human_exists_1 = false;
-//    int aisle_1_check_stopper = 0;
-//    while (true) {
-//        if (comp.breakbeam_conveyor_belt_part_status_1 == true || comp.breakbeam_conveyor_belt_part_status_5 == true) {
-//            ROS_INFO_STREAM("THERE IS A HUMAN IN AISLE 1");
-//            human_exists_1 = true;
-//            break;
-//        }
-//        else{
-//            std::this_thread::sleep_for(std::chrono::milliseconds(150));
-//            aisle_1_check_stopper +=1;
-//        }
-//        if(aisle_1_check_stopper == 10){
-//            break;
-//        }
-//    }
-//    ROS_INFO_STREAM("CHECKING FOR HUMAN IN AISLE 2");
-//    bool breakbeam_6_triggered = false;
-//    bool breakbeam_8_triggered = false;
-//    bool human_exists_2 = false;
-//    int aisle_2_check_stopper = 0;
-//    while (true) {
-//        if (comp.breakbeam_conveyor_belt_part_status_6 == true || comp.breakbeam_conveyor_belt_part_status_8 == true) {
-//            ROS_INFO_STREAM("THERE IS A HUMAN IN AISLE 2");
-//            human_exists_2 = true;
-//            break;
-//        }
-//        else{
-//            std::this_thread::sleep_for(std::chrono::milliseconds(150));
-//            aisle_2_check_stopper+=1;
-//        }
-//        if(aisle_2_check_stopper == 10){
-//            break;
-//        }
-//    }
+    ros::Duration(2).sleep();
+    ROS_INFO_STREAM("CHECKING FOR HUMAN IN ALL AISLES....");
+    bool human_exists = false;
+    ROS_INFO_STREAM(comp.breakbeam_conveyor_belt_part_status_1);
+    ROS_INFO_STREAM(comp.breakbeam_conveyor_belt_part_status_5);
+    ROS_INFO_STREAM(comp.breakbeam_conveyor_belt_part_status_6);
+    ROS_INFO_STREAM(comp.breakbeam_conveyor_belt_part_status_9);
+    if (comp.breakbeam_conveyor_belt_part_status_1 == true || comp.breakbeam_conveyor_belt_part_status_5 == true || comp.breakbeam_conveyor_belt_part_status_6 == true || comp.breakbeam_conveyor_belt_part_status_9 == true) {
+        ROS_INFO_STREAM("< --- HUMAN FOUND --- >");
+        human_exists = true;
+    }
+    else{
+        ROS_INFO_STREAM(" -x-x-x-THERE IS A NO HUMAN AT ALL!-x-x-x- ");
+    }
+    ROS_INFO_STREAM("CHECKING FOR HUMANS COMPLETE....");
 
     LOOP3:for(i; i < comp.get_received_order_vector().size();  i++) {
     for (int j = 0; j < comp.get_received_order_vector()[i].shipments.size(); j++) {
@@ -638,8 +613,7 @@ int main(int argc, char ** argv) {
                                 auto q = gantry.pickup_locations.find(l);
                                 int green_gasket_counter = 0;
                                 for (auto y: q->second){
-//                                    if (human_exists_1 == true || human_exists_2 == true){
-                                      if(green_gasket_counter==4){
+                                      if(green_gasket_counter==4 && human_exists == true){
                                         ROS_INFO_STREAM("Waiting for the person to move");
                                         bool breakbeam_3_triggered = false;
                                         ros::Time time_3;
@@ -808,8 +782,7 @@ int main(int argc, char ** argv) {
                                 auto q = gantry.pickup_locations.find(l);
                                 int blue_pulley_counter = 0;
                                 for (auto y: q->second){
-//                                    if (human_exists_1 == true || human_exists_2 == true){
-                                    if(blue_pulley_counter==3){
+                                    if(blue_pulley_counter==3 && human_exists == true ){
                                         ROS_INFO_STREAM("Waiting for the person to move");
                                         bool breakbeam_7_triggered = false;
                                         ros::Time time_7;

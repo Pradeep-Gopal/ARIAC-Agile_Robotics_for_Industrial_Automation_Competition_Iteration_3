@@ -123,15 +123,15 @@ void GantryControl::init() {
     shelf8a_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w2_.gantry = {-11.30, 4.48,3.45};
+    shelf8a_w2_.gantry = {-11.40, 4.48,3.45};
     shelf8a_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-    shelf8a_w3_.gantry = {-11.30, 2.99, 3.45};
+    //this is where the grantry waits
+    shelf8a_w3_.gantry = {-11.4, 2.99, 3.45};
     shelf8a_w3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w4_.gantry = {-11.30, 1.6, 3.14};
+    shelf8a_w4_.gantry = {-11.40, 1.6, 3.14};
     shelf8a_w4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
