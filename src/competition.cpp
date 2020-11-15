@@ -51,7 +51,7 @@ void Competition::init() {
             "/ariac/quality_control_sensor_1", 10, &Competition::quality_control_sensor_1_subscriber_callback, this);
 
     ROS_INFO("Subscribe to the /ariac/quality_control_sensor_2"); //AGV1
-    quality_control_sensor_1_subscriber_ = node_.subscribe(
+    quality_control_sensor_2_subscriber_ = node_.subscribe(
             "/ariac/quality_control_sensor_2", 10, &Competition::quality_control_sensor_2_subscriber_callback, this);
 
     ROS_INFO("Subscribe to the /ariac/breakbeam_0");

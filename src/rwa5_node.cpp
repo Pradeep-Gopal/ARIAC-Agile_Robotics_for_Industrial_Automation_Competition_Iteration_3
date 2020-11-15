@@ -631,11 +631,14 @@ int main(int argc, char ** argv) {
 //                                    pick_part_from_conveyor(comp, gantry);
 //                                }
 
-                                if(master_vector_main[i][j][k].agv_id == "agv2")
+                                if(master_vector_main[i][j][k].agv_id == "agv2") {
+                                    ROS_INFO_STREAM("Loading faulty part status from agv2");
                                     faulty_part = comp.get_quality_sensor_status_agv2();
-                                else
+                                }
+                                else{
+                                    ROS_INFO_STREAM("Loading faulty part status from agv1");
                                     faulty_part = comp.get_quality_sensor_status_agv1();
-
+                                }
 
                                 ROS_INFO_STREAM("Status of faulty part = ");
                                 ROS_INFO_STREAM(faulty_part.faulty);
@@ -649,7 +652,10 @@ int main(int argc, char ** argv) {
                                     faulty_part.type = parts_from_camera_main[l][m].type;
                                     faulty_part.pose.position.x = faulty_part.pose.position.x;
                                     faulty_part.pose.position.y = faulty_part.pose.position.y;
-                                    faulty_part.pose.position.z = faulty_part.pose.position.z + 0.0365235;
+                                    if(master_vector_main[i][j][k].agv_id == "agv1")
+                                        faulty_part.pose.position.z = faulty_part.pose.position.z + 0.0365236; //0.0365235
+                                    else
+                                        faulty_part.pose.position.z = faulty_part.pose.position.z + 0.03;
                                     faulty_part.pose.orientation.x = faulty_part.pose.orientation.x;
                                     faulty_part.pose.orientation.y = faulty_part.pose.orientation.y;
                                     faulty_part.pose.orientation.z = faulty_part.pose.orientation.z;

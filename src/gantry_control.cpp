@@ -785,7 +785,7 @@ void GantryControl::placePart(part part, std::string agv){
 
     if(initial_yaw < 0) {
         ROS_INFO_STREAM("Initial pose was negative -45 ");
-        target_yaw = -(final_yaw - (initial_yaw + 3.14) - 3.14 - 0.783); //RWA5 Green Gasket picking
+        target_yaw = -(final_yaw - (initial_yaw + 3.14) - 3.14 - 0.733); //RWA5 Green Gasket picking
     }
     else {
         ROS_INFO_STREAM("Initial pose was positive 45 ");
