@@ -13,7 +13,8 @@
 #include <nist_gear/Proximity.h>
 
 #include "utils.h"
-
+#include <tf/transform_listener.h> //for shelves gap
+#include <tf/LinearMath/Vector3.h>
 /**
  * @brief Competition class
  * 
@@ -34,6 +35,7 @@ public:
     part get_quality_sensor_status_agv2();
     part get_quality_sensor_status_agv1();
     std::vector<std::vector<std::vector<master_struct> > > get_master_vector();
+    std::vector<std::vector<double>> get_shelf_vector();
     void print_parts_detected();
     void print_parts_to_pick();
     void pre_kitting();
@@ -77,6 +79,8 @@ public:
     bool breakbeam_conveyor_belt_part_status_7= false;
     bool breakbeam_conveyor_belt_part_status_8= false;
     bool breakbeam_conveyor_belt_part_status_9= false;
+
+    void shelf_callback(std::string);
 
 
 private:

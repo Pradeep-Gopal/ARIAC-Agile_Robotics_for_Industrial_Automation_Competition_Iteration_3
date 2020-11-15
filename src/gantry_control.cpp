@@ -3,6 +3,9 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_ros/static_transform_broadcaster.h>
 #include <geometry_msgs/TransformStamped.h>
+#include <tf/transform_listener.h> //for shelves gap
+#include <tf/LinearMath/Vector3.h>
+#include "competition.h"
 
 Quat GantryControl::ToQuaternion(double roll, double pitch, double yaw) // yaw (Z), pitch (Y), roll (X)
 {
@@ -143,6 +146,40 @@ void GantryControl::init() {
     shelf8a_w6_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8a_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    //code for shelf distance and inserting correct waypoints into the
+    //vector
+    ROS_INFO_STREAM(" -- Checking shelves from the Gantry Initialization -- ");
+    ros::NodeHandle node;
+    ros::AsyncSpinner spinner(8);
+    spinner.start();
+    Competition comp(node);
+    std::vector<std::vector<double>> shelf_vector_comp(9,std::vector<double>(3));
+    std::vector <std::string> shelf_vector;
+    shelf_vector.push_back("/shelf3_frame");
+    shelf_vector.push_back("/shelf4_frame");
+    shelf_vector.push_back("/shelf5_frame");
+    shelf_vector.push_back("/shelf6_frame");
+    shelf_vector.push_back("/shelf7_frame");
+    shelf_vector.push_back("/shelf8_frame");
+    shelf_vector.push_back("/shelf9_frame");
+    shelf_vector.push_back("/shelf10_frame");
+    shelf_vector.push_back("/shelf11_frame");
+    for (auto c: shelf_vector) {
+        comp.shelf_callback(c);
+    }
+    shelf_vector_comp = comp.get_shelf_vector();
+    ROS_INFO_STREAM("Distance between the shelves");
+    for (int i = 0; i <=7 ; i++) {
+        if (5<=(abs(shelf_vector_comp[i][0] - shelf_vector_comp[i+1][0])) and (abs(shelf_vector_comp[i][0] - shelf_vector_comp[i+1][0]))<=7){
+            ROS_INFO_STREAM("Gaps between shelves "<<i+3<<" and "<<i+4<<" "<<abs(shelf_vector_comp[i][0] - shelf_vector_comp[i+1][0]));
+        }
+    }
+        // FOR FUTURE REFERENCE :: >
+        // now you can write the code to select which waypoints
+        // has to be inserted, depending on the shelf distances
+        // observed through the code above.
+
+    //end of he shelf vector code
 
     //shelf 4
     int cam = 4;

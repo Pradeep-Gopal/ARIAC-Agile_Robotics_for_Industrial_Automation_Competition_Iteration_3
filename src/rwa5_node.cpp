@@ -36,6 +36,8 @@
 
 #include <nist_gear/AGVControl.h>
 #include <tf2/LinearMath/Quaternion.h>
+#include <tf/transform_listener.h> //for shelves gap
+#include <tf/LinearMath/Vector3.h>
 
 #define MAX_NUMBER_OF_CAMERAS 18
 std::array<std::array<part, 20>, 20>  parts_from_camera_main ;
@@ -50,7 +52,7 @@ int parts_delivered[5]{};
 std::array<part, 20> parts_from_camera_16 ;
 std::array<part, 20> parts_from_camera_17 ;
 bool conveyor_part_picked = false;
-
+std::vector<std::vector<double>> shelf_vector_comp(9,std::vector<double>(3));
 // AVG id(= 1,2) to identify what AVG to submit to
 // shipment_type is the order type
 
@@ -323,7 +325,6 @@ int main(int argc, char ** argv) {
     ros::NodeHandle node;
     ros::AsyncSpinner spinner(8);
     spinner.start();
-
     Competition comp(node);
 
     //Array of Logical Camera Subscribers
@@ -341,13 +342,35 @@ int main(int argc, char ** argv) {
     }
 
     comp.init();
-
-
     std::string c_state = comp.getCompetitionState();
     comp.getClock();
 
+
+//    std::vector <std::string> shelf_vector;
+//    shelf_vector.push_back("/shelf3_frame");
+//    shelf_vector.push_back("/shelf4_frame");
+//    shelf_vector.push_back("/shelf5_frame");
+//    shelf_vector.push_back("/shelf6_frame");
+//    shelf_vector.push_back("/shelf7_frame");
+//    shelf_vector.push_back("/shelf8_frame");
+//    shelf_vector.push_back("/shelf9_frame");
+//    shelf_vector.push_back("/shelf10_frame");
+//    shelf_vector.push_back("/shelf11_frame");
+//    for (auto c: shelf_vector) {
+//        comp.shelf_callback(c);
+//    }
+//    shelf_vector_comp = comp.get_shelf_vector();
+//    ROS_INFO_STREAM("Distance between the shelves");
+//    for (int i = 0; i <=7 ; i++) {
+//        if (5<=(abs(shelf_vector_comp[i][0] - shelf_vector_comp[i+1][0])) and (abs(shelf_vector_comp[i][0] - shelf_vector_comp[i+1][0]))<=7){
+//            ROS_INFO_STREAM("Gaps between shelves "<<i+3<<" and "<<i+4<<" "<<abs(shelf_vector_comp[i][0] - shelf_vector_comp[i+1][0]));
+//        }
+//    }
+
     GantryControl gantry(node);
     gantry.init();
+
+
 
 
     parts_from_camera_main = comp.get_parts_from_camera();
