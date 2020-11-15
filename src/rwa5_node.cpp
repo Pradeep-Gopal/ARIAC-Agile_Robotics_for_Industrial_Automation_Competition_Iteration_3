@@ -292,7 +292,7 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
         while ((comp.breakbeam1_conveyor_belt_part_status == true) ||  (comp.breakbeam2_conveyor_belt_part_status == true)){
             ROS_INFO_STREAM("Breakbeam sensor triggered, waiting to turn off");
         }
-        ROS_INFO_STREAM("Breakbeam triggered");
+        ROS_INFO_STREAM("Attempting to pickup part");
         part part_picking = comp.parts_from_15_camera[0];
         part_picking.pose.position.y += 1.75;
         ROS_INFO_STREAM("Attempting to pick " << part_picking.type << " from " << part_picking.pose);
@@ -306,9 +306,7 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
         ROS_INFO_STREAM("Gripper Deactivated");
         gantry.goToPresetLocation(gantry.start_);
         ROS_INFO_STREAM("Start Location Reached");
-        for (int l = 0; l < comp.parts_from_11_camera.size(); l++) {
-            parts_from_camera_main[11][l] = comp.parts_from_11_camera[l];
-        }
+        parts_from_camera_main[11][count] = comp.parts_from_11_camera[0];
         count += 1;
     }
 
