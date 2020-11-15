@@ -123,24 +123,24 @@ void GantryControl::init() {
     shelf8a_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w2_.gantry = {-11.4, 4.48,3.14};
+    shelf8a_w2_.gantry = {-11.30, 4.48,3.45};
     shelf8a_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w3_.gantry = {-11.4, 1.6, 3.14};
+    shelf8a_w3_.gantry = {-11.30, 2.99, 3.45};
     shelf8a_w3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w4_.gantry = {-14.5, 1.6, 3.14};
+    shelf8a_w4_.gantry = {-11.30, 1.6, 3.14};
     shelf8a_w4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w5_.gantry = {-14.5, 1.6, 3.14};
-    shelf8a_w5_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8a_w5_.gantry = {-14.7, 1.6, 3.14};
+    shelf8a_w5_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8a_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w6_.gantry = {-14.5, 1.3, 3.14};
-    shelf8a_w6_.left_arm = {-2.79, -PI/4, PI/2, -PI/4, -1.39626, 0};
+    shelf8a_w6_.gantry = {-14.7, 1.3, 3.14};
+    shelf8a_w6_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8a_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 
@@ -164,6 +164,8 @@ void GantryControl::init() {
     waypoints.push_back(shelf8a_w4_);
     waypoints.push_back(shelf8a_w5_);
     waypoints.push_back(shelf8a_w6_);
+//    waypoints.push_back(shelf8a_w7_);
+//    waypoints.push_back(shelf8a_w8_);
     pickup_locations[cam] = waypoints;
 
 

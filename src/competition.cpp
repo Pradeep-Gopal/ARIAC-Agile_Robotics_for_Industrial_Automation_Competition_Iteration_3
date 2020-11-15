@@ -90,6 +90,9 @@ void Competition::init() {
     breakbeam_sensor_8_subscriber_ = node_.subscribe(
             "/ariac/breakbeam_8", 10, &Competition::breakbeam_sensor_8_callback, this);
 
+    ROS_INFO("Subscribe to the /ariac/breakbeam_9");
+    breakbeam_sensor_9_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_9", 10, &Competition::breakbeam_sensor_9_callback, this);
 
   startCompetition();
 
@@ -117,7 +120,6 @@ void Competition::breakbeam_sensor_4_callback(const nist_gear::Proximity::ConstP
     breakbeam_conveyor_belt_part_status_4 = msg->object_detected;
 }
 
-
 void Competition::breakbeam_sensor_5_callback(const nist_gear::Proximity::ConstPtr & msg){
     breakbeam_conveyor_belt_part_status_5 = msg->object_detected;
 }
@@ -132,6 +134,10 @@ void Competition::breakbeam_sensor_7_callback(const nist_gear::Proximity::ConstP
 
 void Competition::breakbeam_sensor_8_callback(const nist_gear::Proximity::ConstPtr & msg){
     breakbeam_conveyor_belt_part_status_8 = msg->object_detected;
+}
+
+void Competition::breakbeam_sensor_9_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_conveyor_belt_part_status_9 = msg->object_detected;
 }
 
 void Competition::setter_delivered(int i, int j, int k)

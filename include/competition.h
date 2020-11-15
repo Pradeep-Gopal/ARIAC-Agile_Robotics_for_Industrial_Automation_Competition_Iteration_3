@@ -66,6 +66,7 @@ public:
     void breakbeam_sensor_6_callback(const nist_gear::Proximity::ConstPtr & msg);
     void breakbeam_sensor_7_callback(const nist_gear::Proximity::ConstPtr & msg);
     void breakbeam_sensor_8_callback(const nist_gear::Proximity::ConstPtr & msg);
+    void breakbeam_sensor_9_callback(const nist_gear::Proximity::ConstPtr & msg);
     bool breakbeam_conveyor_belt_part_status_0= false;
     bool breakbeam_conveyor_belt_part_status_1= false;
     bool breakbeam_conveyor_belt_part_status_2= false;
@@ -75,6 +76,7 @@ public:
     bool breakbeam_conveyor_belt_part_status_6= false;
     bool breakbeam_conveyor_belt_part_status_7= false;
     bool breakbeam_conveyor_belt_part_status_8= false;
+    bool breakbeam_conveyor_belt_part_status_9= false;
 
 
 private:
@@ -106,6 +108,7 @@ private:
     ros::Subscriber breakbeam_sensor_6_subscriber_;
     ros::Subscriber breakbeam_sensor_7_subscriber_;
     ros::Subscriber breakbeam_sensor_8_subscriber_;
+    ros::Subscriber breakbeam_sensor_9_subscriber_;
 
 
     // to collect statistics
