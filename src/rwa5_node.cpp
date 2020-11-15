@@ -286,14 +286,16 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
     gantry.goToPresetLocation(gantry.belt_pickup_);
     ROS_INFO_STREAM("belt pick up location reached");
 
-    while(comp.breakbeam_conveyor_belt_part_status == false){
-        ROS_INFO_STREAM("Breakbeam sensor not triggered, waiting for triggering");
-    }
-    if(comp.breakbeam_conveyor_belt_part_status == true) {
+    int no_of_parts{2}, count{0};
+    while(count < no_of_parts) {
+        ROS_INFO_STREAM("Picking up part number " << count + 1);
+        while ((comp.breakbeam1_conveyor_belt_part_status == true) ||  (comp.breakbeam2_conveyor_belt_part_status == true)){
+            ROS_INFO_STREAM("Breakbeam sensor triggered, waiting to turn off");
+        }
         ROS_INFO_STREAM("Breakbeam triggered");
         part part_picking = comp.parts_from_15_camera[0];
         part_picking.pose.position.y += 1.75;
-        ROS_INFO_STREAM("Attempting to pick " << part_picking.type <<" from " << part_picking.pose);
+        ROS_INFO_STREAM("Attempting to pick " << part_picking.type << " from " << part_picking.pose);
         gantry.pickPart(part_picking);
         ROS_INFO_STREAM("Part picked");
         gantry.goToPresetLocation(gantry.belt_pickup_);
@@ -304,10 +306,10 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
         ROS_INFO_STREAM("Gripper Deactivated");
         gantry.goToPresetLocation(gantry.start_);
         ROS_INFO_STREAM("Start Location Reached");
-
-        for(int l = 0; l < comp.parts_from_11_camera.size(); l++){
+        for (int l = 0; l < comp.parts_from_11_camera.size(); l++) {
             parts_from_camera_main[11][l] = comp.parts_from_11_camera[l];
         }
+        count += 1;
     }
 
     conveyor_part_picked = true;
@@ -373,9 +375,9 @@ int main(int argc, char ** argv) {
             (master_vector_main[i][j][k].type == "disk_part_blue") ||
             (master_vector_main[i][j][k].type == "disk_part_red") ||
             (master_vector_main[i][j][k].type == "disk_part_green") ||
-            (master_vector_main[i][j][k].type == "piston_part_blue") ||
-            (master_vector_main[i][j][k].type == "piston_part_green") ||
-            (master_vector_main[i][j][k].type == "piston_part_red") ||
+            (master_vector_main[i][j][k].type == "piston_rod_part_blue") ||
+            (master_vector_main[i][j][k].type == "piston_rod_part_green") ||
+            (master_vector_main[i][j][k].type == "piston_rod_part_red") ||
             (master_vector_main[i][j][k].type == "gasket_part_blue") ||
             (master_vector_main[i][j][k].type == "gasket_part_red") ||
             (master_vector_main[i][j][k].type == "gasket_part_green")) {
@@ -568,7 +570,7 @@ int main(int argc, char ** argv) {
                                     goto LOOP;
                                 }
                             } else if (master_vector_main[i][j][k].type == "gasket_part_green") {
-                                ROS_INFO_STREAM("Part to be pickedddddddddddddddd = " << master_vector_main[i][j][k].type);
+                                ROS_INFO_STREAM("Part to be picked = " << master_vector_main[i][j][k].type);
                                 part part_in_tray;
                                 part_in_tray.type = master_vector_main[i][j][k].type;
                                 part_in_tray.pose.position.x = master_vector_main[i][j][k].place_part_pose.position.x;
@@ -625,11 +627,14 @@ int main(int argc, char ** argv) {
 //                                //Fixing part pose if gripper is Faulty
 //                                fix_part_pose(comp, master_vector_main[i][j][k], gantry, part_in_tray);
 //
-//                                // Checking if parts have arrived on conveyor belt
-//                                if((comp.conveyor_belt_part_status == true) && (conveyor_part_picked == false))
-//                                {
-//                                    pick_part_from_conveyor(comp, gantry);
-//                                }
+                                // Checking if parts have arrived on conveyor belt
+
+                                ROS_INFO_STREAM("First condition " << comp.conveyor_belt_part_status << "Second condition " << conveyor_part_picked);
+                                if((comp.conveyor_belt_part_status == true) && (conveyor_part_picked == false))
+                                {
+                                    ROS_INFO_STREAM("Picking part from conveyor belt");
+                                    pick_part_from_conveyor(comp, gantry);
+                                }
 
                                 if(master_vector_main[i][j][k].agv_id == "agv2") {
                                     ROS_INFO_STREAM("Loading faulty part status from agv2");

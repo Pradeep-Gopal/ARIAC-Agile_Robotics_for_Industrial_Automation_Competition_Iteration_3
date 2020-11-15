@@ -58,6 +58,10 @@ void Competition::init() {
     breakbeam_sensor_1_subscriber_ = node_.subscribe(
             "/ariac/breakbeam_0", 10, &Competition::breakbeam_sensor_1_callback, this);
 
+    ROS_INFO("Subscribe to the /ariac/breakbeam_1");
+    breakbeam_sensor_2_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_1", 10, &Competition::breakbeam_sensor_2_callback, this);
+
 
   startCompetition();
 
@@ -66,7 +70,11 @@ void Competition::init() {
 }
 
 void Competition::breakbeam_sensor_1_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_conveyor_belt_part_status = msg->object_detected;
+    breakbeam1_conveyor_belt_part_status = msg->object_detected;
+}
+
+void Competition::breakbeam_sensor_2_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam2_conveyor_belt_part_status = msg->object_detected;
 }
 
 void Competition::setter_delivered(int i, int j, int k)
@@ -280,9 +288,9 @@ void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::C
                     (msg->models[i].type == "disk_part_blue") ||
                     (msg->models[i].type == "disk_part_red") ||
                     (msg->models[i].type == "disk_part_green") ||
-                    (msg->models[i].type == "piston_part_blue") ||
-                    (msg->models[i].type == "piston_part_green") ||
-                    (msg->models[i].type == "piston_part_red") ||
+                    (msg->models[i].type == "piston_rod_part_blue") ||
+                    (msg->models[i].type == "piston_rod_part_green") ||
+                    (msg->models[i].type == "piston_rod_part_red") ||
                     (msg->models[i].type == "gasket_part_blue") ||
                     (msg->models[i].type == "gasket_part_red") ||
                     (msg->models[i].type == "gasket_part_green")) {
