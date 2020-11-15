@@ -226,7 +226,7 @@ void GantryControl::init() {
     agv2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //    Agv1 location
-    agv1_.gantry = {0.6, -6.9, PI};
+    agv1_.gantry = {0.6, -6.95, PI};
     // agv1_.left_arm = {-0.38, -PI/4, PI/2, -PI/4, 1.15, 0};
     agv1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};

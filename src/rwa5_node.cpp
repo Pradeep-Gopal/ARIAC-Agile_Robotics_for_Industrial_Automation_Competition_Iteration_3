@@ -653,7 +653,7 @@ int main(int argc, char ** argv) {
                                     faulty_part.pose.position.x = faulty_part.pose.position.x;
                                     faulty_part.pose.position.y = faulty_part.pose.position.y;
                                     if(master_vector_main[i][j][k].agv_id == "agv1")
-                                        faulty_part.pose.position.z = faulty_part.pose.position.z + 0.0365236; //0.0365235
+                                        faulty_part.pose.position.z = faulty_part.pose.position.z + 0.03; //0.0365235
                                     else
                                         faulty_part.pose.position.z = faulty_part.pose.position.z + 0.03;
                                     faulty_part.pose.orientation.x = faulty_part.pose.orientation.x;
