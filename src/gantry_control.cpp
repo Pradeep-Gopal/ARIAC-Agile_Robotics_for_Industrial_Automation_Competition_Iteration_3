@@ -59,51 +59,83 @@ void GantryControl::init() {
 
     //Moving to shelf 8
     // gasket part green
-    shelf8_w1_.gantry = {0.0,-1.6,0};
+//    shelf8_w1_.gantry = {0.0,-1.6,0};
+//    shelf8_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+//
+//    shelf8_w2_.gantry = {-13.5,-1.6,0};
+//    shelf8_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+
+    shelf8_w1_.gantry = {0.0, -4.48, 0};
     shelf8_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8_w2_.gantry = {-13.5,-1.6,0};
+    shelf8_w2_.gantry = {-11.4, -4.48,0};
     shelf8_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8_w3_.gantry = {-14.5, -1.6, 0.0};
-    shelf8_w3_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_w3_.gantry = {-11.4, -1.6, 0};
+    shelf8_w3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8_w4_.gantry = {-14.5, -1.2, 0.0};
-    shelf8_w4_.left_arm = {-2.79, -PI/4, PI/2, -PI/4, -1.39626, 0};
+    shelf8_w4_.gantry = {-13.5, -1.6, 0};
+    shelf8_w4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+
+
+//    shelf8_w3_.gantry = {-13.5, -1.6, 0.0};
+//    shelf8_w3_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+//
+//    shelf8_w4_.gantry = {-14.1, -1.2, 0.0};
+//    shelf8_w4_.left_arm = {-2.79, -PI/4, PI/2, -PI/4, -1.39626, 0};
+//    shelf8_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_w5_.gantry = {-13.5, -1.6, 0.0};
+    shelf8_w5_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_w6_.gantry = {-14, -1.2, 0.0};
+    shelf8_w6_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
     //Blue Pulley part on shelf 8
-    shelf8a_w1_.gantry = {0.0, 4.48, 0};
+    shelf8a_w1_.gantry = {0.0, 4.48, 3.14};
     shelf8a_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w2_.gantry = {-11.4, 4.48,0};
+    shelf8a_w2_.gantry = {-11.4, 4.48,3.14};
     shelf8a_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w3_.gantry = {-11.4, 1.6, 0.0};
+    shelf8a_w3_.gantry = {-11.4, 1.6, 3.14};
     shelf8a_w3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w4_.gantry = {-15, 1.6, 0.0};
+    shelf8a_w4_.gantry = {-14.7, 1.6, 3.14};
     shelf8a_w4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w5_.gantry = {-15, 1.6, 0.0};
-    shelf8a_w5_.left_arm = {PI/2, -PI/4, PI/2, -PI/4, 3.34, 0};
+
+//    shelf8a_w5_.gantry = {-14.5, 1.6, 3.14};
+//    shelf8a_w5_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8a_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+//
+//    shelf8a_w6_.gantry = {-14.5, 1.3, 3.14};
+//    shelf8a_w6_.left_arm = {-2.79, -PI/4, PI/2, -PI/4, -1.39626, 0};
+//    shelf8a_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8a_w5_.gantry = {-14.7, 1.6, 3.14};
+    shelf8a_w5_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8a_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w6_.gantry = {-16.8, 1.4, 0.0};
-    shelf8a_w6_.left_arm = {PI/2, -PI/4, PI/2, -PI/4, 3.34, 0};
-    shelf8a_w5_.left_arm = {1.78, -PI/4, PI/2, -PI/4, 3.34, 0};
-    shelf8a_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-    shelf8a_w6_.gantry = {-14.8, 1.2, 0.0};
-    shelf8a_w6_.left_arm = {1.78, -PI/4, PI/2, -PI/4, 3.34, 0};
+    shelf8a_w6_.gantry = {-14.7, 1.3, 3.14};
+    shelf8a_w6_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8a_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
 
     //shelf 4
     int cam = 4;
@@ -112,6 +144,8 @@ void GantryControl::init() {
     waypoints.push_back(shelf8_w2_);
     waypoints.push_back(shelf8_w3_);
     waypoints.push_back(shelf8_w4_);
+    waypoints.push_back(shelf8_w5_);
+    waypoints.push_back(shelf8_w6_);
     pickup_locations[cam] = waypoints;
 
     cam = 3;
@@ -193,7 +227,7 @@ void GantryControl::init() {
     agv2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //    Agv1 location
-    agv1_.gantry = {0.6, -6.9, PI};
+    agv1_.gantry = {0.6, -6.95, PI};
     // agv1_.left_arm = {-0.38, -PI/4, PI/2, -PI/4, 1.15, 0};
     agv1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -202,6 +236,11 @@ void GantryControl::init() {
     agv2_drop_.gantry = {1, 6.9, PI};
     agv2_drop_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv2_drop_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //    Agv1 faulty part Drop location
+    agv1_drop_.gantry = {1, -6.9, PI};
+    agv1_drop_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    agv1_drop_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     // pose change wavepoints
 
@@ -631,9 +670,9 @@ bool GantryControl::pickPart(part part){
         }
         else {
             ROS_INFO_STREAM("[Gripper] = object not attached");
-            int max_attempts{5};
+            int attempt{0}, max_attempts{5};
             int current_attempt{0};
-            while(!state.attached) {
+            while(!state.attached || (attempt != max_attempts)) {
                 ROS_INFO_STREAM("Attached status = " << state.attached);
                 left_arm_group_.setPoseTarget(currentPose);
                 left_arm_group_.move();
@@ -641,10 +680,12 @@ bool GantryControl::pickPart(part part){
                 left_arm_group_.setPoseTarget(part.pose);
                 left_arm_group_.move();
                 activateGripper("left_arm");
+                auto state = getGripperState("left_arm");
                 if(state.attached)
                 {
                     return true;
                 }
+                attempt += 1;
             }
         }
     }
@@ -741,10 +782,16 @@ void GantryControl::placePart(part part, std::string agv){
 
 //    target_yaw =  -(final_yaw - (initial_yaw - 3.2) + 3.14) - 2.36; //Rwa4 working code
 
-    if(initial_yaw < 0)
-        target_yaw =  -(final_yaw - (initial_yaw + 3.14) - 3.14 - 0.633); //RWA5 Green Gasket picking
-    else
-        target_yaw =  -(final_yaw - (initial_yaw - 3.2) + 3.14) - 2.36;
+//    target_yaw = -(final_yaw - (initial_yaw + 3.14) - 3.14 - 0.633); //RWA5 Green Gasket picking
+
+    if(initial_yaw < 0) {
+        ROS_INFO_STREAM("Initial pose was negative -45 ");
+        target_yaw = -(final_yaw - (initial_yaw + 3.14) - 3.14 - 0.733); //RWA5 Green Gasket picking
+    }
+    else {
+        ROS_INFO_STREAM("Initial pose was positive 45 ");
+        target_yaw = -(final_yaw - (initial_yaw - 3.2) + 3.14) - 2.36;
+    }
 
     auto final_pose_ = ToQuaternion(target_roll, target_pitch, target_yaw);
     final_pose.orientation.x = final_pose_.x;

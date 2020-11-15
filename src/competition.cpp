@@ -11,6 +11,7 @@
 int p =0;
 int camera_no = 0;
 part faulty_part_agv2;
+part faulty_part_agv1;
 
 std::vector<order> orders_vector;
 std::vector<shipment> shipment_vector;
@@ -45,13 +46,21 @@ void Competition::init() {
     orders_subscriber_ = node_.subscribe(
             "/ariac/orders", 10, &Competition::order_callback, this);
 
-    ROS_INFO("Subscribe to the /ariac/quality_control_sensor_1");
+    ROS_INFO("Subscribe to the /ariac/quality_control_sensor_1"); //AGV2
     quality_control_sensor_1_subscriber_ = node_.subscribe(
             "/ariac/quality_control_sensor_1", 10, &Competition::quality_control_sensor_1_subscriber_callback, this);
+
+    ROS_INFO("Subscribe to the /ariac/quality_control_sensor_2"); //AGV1
+    quality_control_sensor_2_subscriber_ = node_.subscribe(
+            "/ariac/quality_control_sensor_2", 10, &Competition::quality_control_sensor_2_subscriber_callback, this);
 
     ROS_INFO("Subscribe to the /ariac/breakbeam_0");
     breakbeam_sensor_1_subscriber_ = node_.subscribe(
             "/ariac/breakbeam_0", 10, &Competition::breakbeam_sensor_1_callback, this);
+
+    ROS_INFO("Subscribe to the /ariac/breakbeam_1");
+    breakbeam_sensor_2_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_1", 10, &Competition::breakbeam_sensor_2_callback, this);
 
 
   startCompetition();
@@ -61,7 +70,11 @@ void Competition::init() {
 }
 
 void Competition::breakbeam_sensor_1_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_conveyor_belt_part_status = msg->object_detected;
+    breakbeam1_conveyor_belt_part_status = msg->object_detected;
+}
+
+void Competition::breakbeam_sensor_2_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam2_conveyor_belt_part_status = msg->object_detected;
 }
 
 void Competition::setter_delivered(int i, int j, int k)
@@ -197,8 +210,12 @@ void Competition::delete_completed_order(int i) {
 //            ROS_INFO_STREAM(col.type);,
 //}
 
-part Competition::get_quality_sensor_status(){
+part Competition::get_quality_sensor_status_agv2(){
     return faulty_part_agv2;
+}
+
+part Competition::get_quality_sensor_status_agv1(){
+    return faulty_part_agv1;
 }
 
 
@@ -271,9 +288,9 @@ void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::C
                     (msg->models[i].type == "disk_part_blue") ||
                     (msg->models[i].type == "disk_part_red") ||
                     (msg->models[i].type == "disk_part_green") ||
-                    (msg->models[i].type == "piston_part_blue") ||
-                    (msg->models[i].type == "piston_part_green") ||
-                    (msg->models[i].type == "piston_part_red") ||
+                    (msg->models[i].type == "piston_rod_part_blue") ||
+                    (msg->models[i].type == "piston_rod_part_green") ||
+                    (msg->models[i].type == "piston_rod_part_red") ||
                     (msg->models[i].type == "gasket_part_blue") ||
                     (msg->models[i].type == "gasket_part_red") ||
                     (msg->models[i].type == "gasket_part_green")) {
@@ -393,6 +410,19 @@ void Competition::quality_control_sensor_1_subscriber_callback(const nist_gear::
     }
     else
         faulty_part_agv2.faulty = false;
+}
+
+void Competition::quality_control_sensor_2_subscriber_callback(const nist_gear::LogicalCameraImage::ConstPtr & msg)
+{
+    if(msg->models.size() != 0) {
+        for (int i = 0; i < msg->models.size(); i++) {
+//            ROS_INFO_STREAM("Faulty Part Detected from Callback");
+            faulty_part_agv1.pose = msg->models[i].pose;
+            faulty_part_agv1.faulty = true;
+        }
+    }
+    else
+        faulty_part_agv1.faulty = false;
 }
 
 
