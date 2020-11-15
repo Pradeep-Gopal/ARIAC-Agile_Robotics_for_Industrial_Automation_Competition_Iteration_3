@@ -59,13 +59,32 @@ void GantryControl::init() {
 
     //Moving to shelf 8
     // gasket part green
-    shelf8_w1_.gantry = {0.0,-1.6,0};
+//    shelf8_w1_.gantry = {0.0,-1.6,0};
+//    shelf8_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+//
+//    shelf8_w2_.gantry = {-13.5,-1.6,0};
+//    shelf8_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+
+    shelf8_w1_.gantry = {0.0, -4.48, 0};
     shelf8_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8_w2_.gantry = {-13.5,-1.6,0};
+    shelf8_w2_.gantry = {-11.4, -4.48,0};
     shelf8_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_w3_.gantry = {-11.4, -1.6, 0};
+    shelf8_w3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_w4_.gantry = {-13.5, -1.6, 0};
+    shelf8_w4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+
 
 //    shelf8_w3_.gantry = {-13.5, -1.6, 0.0};
 //    shelf8_w3_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -75,13 +94,13 @@ void GantryControl::init() {
 //    shelf8_w4_.left_arm = {-2.79, -PI/4, PI/2, -PI/4, -1.39626, 0};
 //    shelf8_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8_w3_.gantry = {-13.5, -1.6, 0.0};
-    shelf8_w3_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
-    shelf8_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_w5_.gantry = {-13.5, -1.6, 0.0};
+    shelf8_w5_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8_w4_.gantry = {-14, -1.2, 0.0};
-    shelf8_w4_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
-    shelf8_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_w6_.gantry = {-14, -1.2, 0.0};
+    shelf8_w6_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //Blue Pulley part on shelf 8
     shelf8a_w1_.gantry = {0.0, 4.48, 3.14};
@@ -96,16 +115,24 @@ void GantryControl::init() {
     shelf8a_w3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w4_.gantry = {-14.5, 1.6, 3.14};
+    shelf8a_w4_.gantry = {-14.7, 1.6, 3.14};
     shelf8a_w4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w5_.gantry = {-14.5, 1.6, 3.14};
-    shelf8a_w5_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8a_w5_.gantry = {-14.5, 1.6, 3.14};
+//    shelf8a_w5_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8a_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+//
+//    shelf8a_w6_.gantry = {-14.5, 1.3, 3.14};
+//    shelf8a_w6_.left_arm = {-2.79, -PI/4, PI/2, -PI/4, -1.39626, 0};
+//    shelf8a_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8a_w5_.gantry = {-14.7, 1.6, 3.14};
+    shelf8a_w5_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8a_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w6_.gantry = {-14.5, 1.3, 3.14};
-    shelf8a_w6_.left_arm = {-2.79, -PI/4, PI/2, -PI/4, -1.39626, 0};
+    shelf8a_w6_.gantry = {-14.7, 1.3, 3.14};
+    shelf8a_w6_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8a_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 
@@ -116,6 +143,8 @@ void GantryControl::init() {
     waypoints.push_back(shelf8_w2_);
     waypoints.push_back(shelf8_w3_);
     waypoints.push_back(shelf8_w4_);
+    waypoints.push_back(shelf8_w5_);
+    waypoints.push_back(shelf8_w6_);
     pickup_locations[cam] = waypoints;
 
     cam = 3;
@@ -752,9 +781,11 @@ void GantryControl::placePart(part part, std::string agv){
 
 //    target_yaw =  -(final_yaw - (initial_yaw - 3.2) + 3.14) - 2.36; //Rwa4 working code
 
+//    target_yaw = -(final_yaw - (initial_yaw + 3.14) - 3.14 - 0.633); //RWA5 Green Gasket picking
+
     if(initial_yaw < 0) {
         ROS_INFO_STREAM("Initial pose was negative -45 ");
-        target_yaw = -(final_yaw - (initial_yaw + 3.14) - 3.14 - 0.633); //RWA5 Green Gasket picking
+        target_yaw = -(final_yaw - (initial_yaw + 3.14) - 3.14 - 0.783); //RWA5 Green Gasket picking
     }
     else {
         ROS_INFO_STREAM("Initial pose was positive 45 ");

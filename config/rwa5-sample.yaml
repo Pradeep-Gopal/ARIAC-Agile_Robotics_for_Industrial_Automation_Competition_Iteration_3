@@ -36,11 +36,11 @@ orders:
     shipment_count: 1
     destinations: [agv1]
     products:
-#      product_0:
-#        type: pulley_part_blue
-#        pose:
-#          xyz: [0.0, 0.15, 0]
-#          rpy: [0, 0, 'pi/4']
+      product_0:
+        type: pulley_part_blue
+        pose:
+          xyz: [0.0, 0.15, 0]
+          rpy: [0, 0, 'pi/4']
       product_1:
         type: gasket_part_green
         pose:

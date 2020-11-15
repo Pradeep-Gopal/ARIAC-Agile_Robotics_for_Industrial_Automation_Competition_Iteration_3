@@ -75,7 +75,7 @@ class GantryControl {
     agv2_drop agv2_drop_, agv1_drop_;
     bin13 bin13_;
     bin16 bin16_;
-    shelf5 shelf5_, shelf8_w1_, shelf8_w2_, shelf8_w3_, shelf8_w4_, shelf8a_w1_, shelf8a_w2_, shelf8a_w3_, shelf8a_w4_, shelf8a_w5_, shelf8a_w6_,shelf11_w1_, shelf11_w2_, shelf11_w3_, shelf11_w4_;
+    shelf5 shelf5_, shelf8_w1_, shelf8_w2_, shelf8_w3_, shelf8_w4_, shelf8_w5_, shelf8_w6_, shelf8a_w1_, shelf8a_w2_, shelf8a_w3_, shelf8a_w4_, shelf8a_w5_, shelf8a_w6_,shelf11_w1_, shelf11_w2_, shelf11_w3_, shelf11_w4_;
 
     waypoint_1 waypoint_1_;
     waypoint_2 waypoint_2_;
@@ -86,7 +86,6 @@ class GantryControl {
     agv2_flip agv2_flip_,agv1_flip_;
     flip_target agv2_flip_target_,agv1_flip_target_;
     std::unordered_map<int, std::vector<PresetLocation>> pickup_locations;
-//    std::unordered_map<int, char> pickup_locations;
     std::unordered_map<int, char>:: iterator itr;
 
   private:
