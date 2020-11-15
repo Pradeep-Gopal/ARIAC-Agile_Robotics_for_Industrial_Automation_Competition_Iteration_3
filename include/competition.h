@@ -2,7 +2,6 @@
 #define COMPETITION_H
 
 #include <vector>
-#include <string>
 
 #include <ros/ros.h>
 
@@ -12,12 +11,6 @@
 #include <nist_gear/Order.h>
 #include <nist_gear/LogicalCameraImage.h>
 #include <nist_gear/Proximity.h>
-
-#include <geometry_msgs/Point.h>
-#include <geometry_msgs/PointStamped.h>
-#include <geometry_msgs/PoseStamped.h>
-#include <tf/transform_listener.h>
-#include <tf/LinearMath/Vector3.h>
 
 #include "utils.h"
 
@@ -36,10 +29,11 @@ public:
     void competition_state_callback(const std_msgs::String::ConstPtr & msg);
     void logical_camera_callback(const nist_gear::LogicalCameraImage::ConstPtr & msg, int cam_idx);
     void quality_control_sensor_1_subscriber_callback(const nist_gear::LogicalCameraImage::ConstPtr & msg);
+    void quality_control_sensor_2_subscriber_callback(const nist_gear::LogicalCameraImage::ConstPtr & msg);
     std::array<std::array<part, 20>, 20> get_parts_from_camera();
-    part get_quality_sensor_status();
+    part get_quality_sensor_status_agv2();
+    part get_quality_sensor_status_agv1();
     std::vector<std::vector<std::vector<master_struct> > > get_master_vector();
-    std::vector<std::vector<double>> get_shelf_vector();
     void print_parts_detected();
     void print_parts_to_pick();
     void pre_kitting();
@@ -55,6 +49,7 @@ public:
     void delete_completed_order(int i);
     std::array <part, 20> get_parts_from_16_camera();
     std::array <part, 20> get_parts_from_17_camera();
+
     //--attributes
     std::array<part, 20> parts_from_11_camera;
     std::array<part, 20> parts_from_15_camera;
@@ -81,10 +76,7 @@ public:
     bool breakbeam_conveyor_belt_part_status_7= false;
     bool breakbeam_conveyor_belt_part_status_8= false;
 
-    void shelf_callback(std::string);
-    int count = 0;
 
-    ros::Time time_3;
 private:
     ros::NodeHandle node_;
 
@@ -98,9 +90,11 @@ private:
     ros::Subscriber competition_clock_subscriber_;
     ros::Subscriber orders_subscriber_;
     ros::Subscriber quality_control_sensor_1_subscriber_;
+    ros::Subscriber quality_control_sensor_2_subscriber_;
     std::vector<nist_gear::Order> received_orders_;
 
-    //subscribers
+
+    //BREAKBEAM subscribers
 
 
     ros::Subscriber breakbeam_sensor_0_subscriber_;
@@ -112,6 +106,8 @@ private:
     ros::Subscriber breakbeam_sensor_6_subscriber_;
     ros::Subscriber breakbeam_sensor_7_subscriber_;
     ros::Subscriber breakbeam_sensor_8_subscriber_;
+
+
     // to collect statistics
     stats init_;
 };
