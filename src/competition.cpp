@@ -106,41 +106,72 @@ void Competition::breakbeam_sensor_0_callback(const nist_gear::Proximity::ConstP
 
 void Competition::breakbeam_sensor_1_callback(const nist_gear::Proximity::ConstPtr & msg){
     breakbeam_conveyor_belt_part_status_1 = msg->object_detected;
+    if(breakbeam_conveyor_belt_part_status_1 == true){
+        human_detected=1;
+    }
 }
 
 void Competition::breakbeam_sensor_2_callback(const nist_gear::Proximity::ConstPtr & msg){
     breakbeam_conveyor_belt_part_status_2 = msg->object_detected;
+    if(breakbeam_conveyor_belt_part_status_2 == true){
+        human_detected=1;
+    }
 }
 
 void Competition::breakbeam_sensor_3_callback(const nist_gear::Proximity::ConstPtr & msg){
     breakbeam_conveyor_belt_part_status_3 = msg->object_detected;
+    if(breakbeam_conveyor_belt_part_status_3 == true){
+        human_detected=1;
+    }
 }
 
 void Competition::breakbeam_sensor_4_callback(const nist_gear::Proximity::ConstPtr & msg){
     breakbeam_conveyor_belt_part_status_4 = msg->object_detected;
+    if(breakbeam_conveyor_belt_part_status_4 == true){
+        human_detected=1;
+    }
 }
 
 void Competition::breakbeam_sensor_5_callback(const nist_gear::Proximity::ConstPtr & msg){
     breakbeam_conveyor_belt_part_status_5 = msg->object_detected;
+    if(breakbeam_conveyor_belt_part_status_5 == true){
+        human_detected=1;
+    }
 }
 
 void Competition::breakbeam_sensor_6_callback(const nist_gear::Proximity::ConstPtr & msg){
     breakbeam_conveyor_belt_part_status_6 = msg->object_detected;
+    if(breakbeam_conveyor_belt_part_status_6 == true){
+        human_detected=1;
+    }
 }
 
 void Competition::breakbeam_sensor_7_callback(const nist_gear::Proximity::ConstPtr & msg){
     breakbeam_conveyor_belt_part_status_7 = msg->object_detected;
+    if(breakbeam_conveyor_belt_part_status_7 == true){
+        human_detected=1;
+    }
 }
 
 void Competition::breakbeam_sensor_8_callback(const nist_gear::Proximity::ConstPtr & msg){
     breakbeam_conveyor_belt_part_status_8 = msg->object_detected;
+    if(breakbeam_conveyor_belt_part_status_8 == true){
+        human_detected=1;
+    }
 }
 
 void Competition::breakbeam_sensor_9_callback(const nist_gear::Proximity::ConstPtr & msg){
     breakbeam_conveyor_belt_part_status_9 = msg->object_detected;
+    if(breakbeam_conveyor_belt_part_status_9 == true){
+        human_detected=1;
+    }
 }
 
-
+//checks if a human was EVER detected
+// can include functionality for which aisle as well
+int Competition::get_human_existence(){
+    return human_detected;
+}
 
 void Competition::shelf_callback(std::string shelf_name)
 {

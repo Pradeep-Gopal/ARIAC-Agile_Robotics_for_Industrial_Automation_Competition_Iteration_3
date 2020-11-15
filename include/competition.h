@@ -82,7 +82,8 @@ public:
 
     void shelf_callback(std::string);
 
-
+    int get_human_existence();
+    int human_detected = 0;
 private:
     ros::NodeHandle node_;
 

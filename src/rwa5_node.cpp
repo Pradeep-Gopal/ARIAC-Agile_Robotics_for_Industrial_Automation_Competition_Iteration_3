@@ -375,21 +375,18 @@ int main(int argc, char ** argv) {
 
     parts_from_camera_main = comp.get_parts_from_camera();
     master_vector_main = comp.get_master_vector();
-    ros::Duration(2).sleep();
+    //checks if a human was ever detected in an aisle
     ROS_INFO_STREAM("CHECKING FOR HUMAN IN ALL AISLES....");
-    bool human_exists = false;
-    ROS_INFO_STREAM(comp.breakbeam_conveyor_belt_part_status_1);
-    ROS_INFO_STREAM(comp.breakbeam_conveyor_belt_part_status_5);
-    ROS_INFO_STREAM(comp.breakbeam_conveyor_belt_part_status_6);
-    ROS_INFO_STREAM(comp.breakbeam_conveyor_belt_part_status_9);
-    if (comp.breakbeam_conveyor_belt_part_status_1 == true || comp.breakbeam_conveyor_belt_part_status_5 == true || comp.breakbeam_conveyor_belt_part_status_6 == true || comp.breakbeam_conveyor_belt_part_status_9 == true) {
+    int human_exists = 0;
+    human_exists = comp.get_human_existence();
+    if (human_exists == 1){
         ROS_INFO_STREAM("< --- HUMAN FOUND --- >");
-        human_exists = true;
     }
-    else{
+    else if (human_exists ==0){
         ROS_INFO_STREAM(" -x-x-x-THERE IS A NO HUMAN AT ALL!-x-x-x- ");
     }
     ROS_INFO_STREAM("CHECKING FOR HUMANS COMPLETE....");
+    // end of the human being detection
 
     LOOP3:for(i; i < comp.get_received_order_vector().size();  i++) {
     for (int j = 0; j < comp.get_received_order_vector()[i].shipments.size(); j++) {
@@ -636,7 +633,7 @@ int main(int argc, char ** argv) {
                                 auto q = gantry.pickup_locations.find(l);
                                 int green_gasket_counter = 0;
                                 for (auto y: q->second){
-                                      if(green_gasket_counter==4 && human_exists == true){
+                                      if(green_gasket_counter==4 && human_exists == 1){
                                         ROS_INFO_STREAM("Waiting for the person to move");
                                         bool breakbeam_3_triggered = false;
                                         ros::Time time_3;
@@ -689,7 +686,7 @@ int main(int argc, char ** argv) {
                                     ros::Duration timeout(0.5);
                                 }
 
-                                ROS_INFO_STREAM("AGVVVVVVVVVVVVVVVVVVVVVVV");
+                                ROS_INFO_STREAM("AGV");
                                 ROS_INFO_STREAM(master_vector_main[i][j][k].agv_id);
                                 gantry.placePart(part_in_tray, master_vector_main[i][j][k].agv_id);
                                 ROS_INFO_STREAM("Part placed");
@@ -805,7 +802,7 @@ int main(int argc, char ** argv) {
                                 auto q = gantry.pickup_locations.find(l);
                                 int blue_pulley_counter = 0;
                                 for (auto y: q->second){
-                                    if(blue_pulley_counter==3 && human_exists == true ){
+                                    if(blue_pulley_counter==3 && human_exists == 1 ){
                                         ROS_INFO_STREAM("Waiting for the person to move");
                                         bool breakbeam_7_triggered = false;
                                         ros::Time time_7;
