@@ -302,8 +302,8 @@ void GantryControl::init() {
     shelf11_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     // location where gantry hover to pick up part at belt
-    belt_pickup_.gantry = {0.15, -3, PI/2};
-    belt_pickup_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    belt_pickup_.gantry = {0.52, -3.27, PI/2};
+    belt_pickup_.left_arm = {0.38, -0.41, 1.05, -0.63, 1.94, 0.0};
     belt_pickup_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     // location where gantry hover to pick up part at belt
@@ -652,7 +652,6 @@ bool GantryControl::pickPart(part part){
     part.pose.orientation.w = currentPose.orientation.w;
 //    ROS_INFO_STREAM("["<< part.type<<"]= " << part.pose.position.x << ", " << part.pose.position.y << "," << part.pose.position.z << "," << part.pose.orientation.x << "," << part.pose.orientation.y << "," << part.pose.orientation.z << "," << part.pose.orientation.w);
 
-
     auto state = getGripperState("left_arm");
     if (state.enabled) {
         ROS_INFO_STREAM("[Gripper] = enabled");
@@ -668,26 +667,26 @@ bool GantryControl::pickPart(part part){
 //            goToPresetLocation(start_);
             return true;
         }
-        else {
-            ROS_INFO_STREAM("[Gripper] = object not attached");
-            int attempt{0}, max_attempts{5};
-            int current_attempt{0};
-            while(!state.attached || (attempt != max_attempts)) {
-                ROS_INFO_STREAM("Attached status = " << state.attached);
-                left_arm_group_.setPoseTarget(currentPose);
-                left_arm_group_.move();
-                ros::Duration(0.5).sleep();
-                left_arm_group_.setPoseTarget(part.pose);
-                left_arm_group_.move();
-                activateGripper("left_arm");
-                auto state = getGripperState("left_arm");
-                if(state.attached)
-                {
-                    return true;
-                }
-                attempt += 1;
-            }
-        }
+//        else {
+//            ROS_INFO_STREAM("[Gripper] = object not attached");
+//            int attempt{0}, max_attempts{2};
+//            int current_attempt{0};
+//            while(!state.attached || (attempt != max_attempts)) {
+//                ROS_INFO_STREAM("Attached status = " << state.attached);
+//                left_arm_group_.setPoseTarget(currentPose);
+//                left_arm_group_.move();
+//                ros::Duration(0.5).sleep();
+//                left_arm_group_.setPoseTarget(part.pose);
+//                left_arm_group_.move();
+//                activateGripper("left_arm");
+//                auto state = getGripperState("left_arm");
+//                if(state.attached)
+//                {
+//                    return true;
+//                }
+//                attempt += 1;
+//            }
+//        }
     }
     else {
         ROS_INFO_STREAM("[Gripper] = not enabled");
