@@ -12,9 +12,11 @@
 #include <nist_gear/LogicalCameraImage.h>
 #include <nist_gear/Proximity.h>
 
-#include "utils.h"
 #include <tf/transform_listener.h> //for shelves gap
-#include <tf/LinearMath/Vector3.h>
+#include <tf/LinearMath/Vector3.h> //for shelves gap
+
+#include "utils.h"
+
 /**
  * @brief Competition class
  * 
@@ -35,7 +37,6 @@ public:
     part get_quality_sensor_status_agv2();
     part get_quality_sensor_status_agv1();
     std::vector<std::vector<std::vector<master_struct> > > get_master_vector();
-    std::vector<std::vector<double>> get_shelf_vector();
     void print_parts_detected();
     void print_parts_to_pick();
     void pre_kitting();
@@ -49,16 +50,22 @@ public:
     std::vector<nist_gear::Order> get_received_order_vector();
     void setter_delivered(int i, int j, int k);
     void delete_completed_order(int i);
+    std::vector<part> parts_from_15_camera;
+    std::vector <part> get_parts_from_15_camera();
     std::array <part, 20> get_parts_from_16_camera();
     std::array <part, 20> get_parts_from_17_camera();
 
     //--attributes
     std::array<part, 20> parts_from_11_camera;
-    std::array<part, 20> parts_from_15_camera;
+//    std::array<part, 20> parts_from_15_camera;
     std::array<part, 20> parts_from_16_camera;
     std::array<part, 20> parts_from_17_camera;
     bool conveyor_belt_part_status = false;
 
+    //vector to store shelves
+    std::vector<std::vector<double>> get_shelf_vector();
+
+    // all breakbeam related initialization
     void breakbeam_sensor_0_callback(const nist_gear::Proximity::ConstPtr & msg);
     void breakbeam_sensor_1_callback(const nist_gear::Proximity::ConstPtr & msg);
     void breakbeam_sensor_2_callback(const nist_gear::Proximity::ConstPtr & msg);
@@ -69,21 +76,24 @@ public:
     void breakbeam_sensor_7_callback(const nist_gear::Proximity::ConstPtr & msg);
     void breakbeam_sensor_8_callback(const nist_gear::Proximity::ConstPtr & msg);
     void breakbeam_sensor_9_callback(const nist_gear::Proximity::ConstPtr & msg);
+    void breakbeam_sensor_10_callback(const nist_gear::Proximity::ConstPtr & msg);
     bool breakbeam_conveyor_belt_part_status_0= false;
     bool breakbeam_conveyor_belt_part_status_1= false;
-    bool breakbeam_conveyor_belt_part_status_2= false;
-    bool breakbeam_conveyor_belt_part_status_3= false;
-    bool breakbeam_conveyor_belt_part_status_4= false;
-    bool breakbeam_conveyor_belt_part_status_5= false;
-    bool breakbeam_conveyor_belt_part_status_6= false;
-    bool breakbeam_conveyor_belt_part_status_7= false;
-    bool breakbeam_conveyor_belt_part_status_8= false;
-    bool breakbeam_conveyor_belt_part_status_9= false;
+    bool breakbeam_part_status_2= false;
+    bool breakbeam_part_status_3= false;
+    bool breakbeam_part_status_4= false;
+    bool breakbeam_part_status_5= false;
+    bool breakbeam_part_status_6= false;
+    bool breakbeam_part_status_7= false;
+    bool breakbeam_part_status_8= false;
+    bool breakbeam_part_status_9= false;
+    bool breakbeam_part_status_10= false;
 
     void shelf_callback(std::string);
 
     int get_human_existence();
     int human_detected = 0;
+
 private:
     ros::NodeHandle node_;
 
@@ -101,8 +111,7 @@ private:
     std::vector<nist_gear::Order> received_orders_;
 
 
-    //BREAKBEAM subscribers
-
+    //BREAK_BEAM subscribers
 
     ros::Subscriber breakbeam_sensor_0_subscriber_;
     ros::Subscriber breakbeam_sensor_1_subscriber_;
@@ -114,7 +123,7 @@ private:
     ros::Subscriber breakbeam_sensor_7_subscriber_;
     ros::Subscriber breakbeam_sensor_8_subscriber_;
     ros::Subscriber breakbeam_sensor_9_subscriber_;
-
+    ros::Subscriber breakbeam_sensor_10_subscriber_;
 
     // to collect statistics
     stats init_;

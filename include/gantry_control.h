@@ -53,6 +53,7 @@ class GantryControl {
 
 //    bool pickPart(part part, std::string arm_name);
     bool pickPart(part part);
+    bool pickMovingPart(part part);
     void placePart(part part, std::string agv);
     void placePart_right_arm(part part,std::string agv);
     
@@ -70,12 +71,12 @@ class GantryControl {
 
     //--preset locations;
     start start_, belt_pickup_;
-    bin3 bin3_, bin1_;
+    bin3 bin3_, bin1_, bin1_w1, bin1_w2;
     agv2 agv2_, agv1_;
     agv2_drop agv2_drop_, agv1_drop_;
     bin13 bin13_;
     bin16 bin16_;
-    shelf5 shelf5_, shelf8_w1_, shelf8_w2_, shelf8_w3_, shelf8_w4_, shelf8_w5_,shelf8_w6_, shelf8_w7_,shelf8a_w1_, shelf8a_w2_, shelf8a_w3_, shelf8a_w4_, shelf8a_w5_,shelf8a_w6_,shelf11_w1_, shelf11_w2_, shelf11_w3_, shelf11_w4_;
+    shelf5 shelf5_, shelf8_w1_, shelf8_w2_, shelf8_w3_, shelf8_w4_, shelf8_w5_, shelf8_w6_,shelf8_w7_, shelf8a_w1_, shelf8a_w2_, shelf8a_w3_, shelf8a_w4_, shelf8a_w5_, shelf8a_w6_,shelf11_w1_, shelf11_w2_, shelf11_w3_, shelf11_w4_;
 
     waypoint_1 waypoint_1_;
     waypoint_2 waypoint_2_;
@@ -86,7 +87,6 @@ class GantryControl {
     agv2_flip agv2_flip_,agv1_flip_;
     flip_target agv2_flip_target_,agv1_flip_target_;
     std::unordered_map<int, std::vector<PresetLocation>> pickup_locations;
-//    std::unordered_map<int, char> pickup_locations;
     std::unordered_map<int, char>:: iterator itr;
 
   private:

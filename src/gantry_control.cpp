@@ -69,29 +69,34 @@ void GantryControl::init() {
 //    shelf8_w2_.gantry = {-13.5,-1.6,0};
 //    shelf8_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
 //    shelf8_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+// waypoints by Pradeep to reach green
+//    shelf8_w1_.gantry = {0.0, -4.48, 0};
+//    shelf8_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 //
+//    shelf8_w2_.gantry = {-11.4, -4.48,0};
+//    shelf8_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 //
-//
-//
-//
-//    shelf8_w3_.gantry = {-13.5, -1.6, 0.0};
-//    shelf8_w3_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8_w3_.gantry = {-11.4, -1.6, 0};
+//    shelf8_w3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
 //    shelf8_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 //
-//    shelf8_w4_.gantry = {-14.1, -1.2, 0.0};
-//    shelf8_w4_.left_arm = {-2.79, -PI/4, PI/2, -PI/4, -1.39626, 0};
+//    shelf8_w4_.gantry = {-13.5, -1.6, 0};
+//    shelf8_w4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
 //    shelf8_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 //
-//    shelf8_w3_.gantry = {-13.5, -1.6, 0.0};
-//    shelf8_w3_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
-//    shelf8_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8_w5_.gantry = {-13.5, -1.6, 0.0};
+//    shelf8_w5_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+//    shelf8_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 //
-//    shelf8_w4_.gantry = {-14, -1.2, 0.0};
-//    shelf8_w4_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
-//    shelf8_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8_w6_.gantry = {-14, -1.2, 0.0};
+//    shelf8_w6_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+//    shelf8_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+//new waypoints by Rajesh and Govind to reach green
 
-    //
     shelf8_w1_.gantry = {0.0,-4.48,0.0};
     shelf8_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -120,16 +125,25 @@ void GantryControl::init() {
     shelf8_w7_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8_w7_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+// Pradeep Waypoints to Blue
 
-    //Blue Pulley part on shelf 8
     shelf8a_w1_.gantry = {0.0, 4.48, 3.14};
     shelf8a_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+//    shelf8a_w2_.gantry = {-11.4, 4.48,3.14};
+//    shelf8a_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8a_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
     shelf8a_w2_.gantry = {-11.40, 4.48,3.45};
     shelf8a_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-    //this is where the grantry waits
+
+//    shelf8a_w3_.gantry = {-11.4, 1.6, 3.14};
+//    shelf8a_w3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8a_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //this is where the gantry waits
     shelf8a_w3_.gantry = {-11.4, 2.99, 3.45};
     shelf8a_w3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -137,6 +151,10 @@ void GantryControl::init() {
     shelf8a_w4_.gantry = {-11.40, 1.6, 3.14};
     shelf8a_w4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+//    shelf8a_w4_.gantry = {-14.7, 1.6, 3.14};
+//    shelf8a_w4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8a_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     shelf8a_w5_.gantry = {-14.7, 1.6, 3.14};
     shelf8a_w5_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
@@ -146,40 +164,17 @@ void GantryControl::init() {
     shelf8a_w6_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8a_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    //code for shelf distance and inserting correct waypoints into the
-    //vector
-    ROS_INFO_STREAM(" -- Checking shelves from the Gantry Initialization -- ");
-    ros::NodeHandle node;
-    ros::AsyncSpinner spinner(8);
-    spinner.start();
-    Competition comp(node);
-    std::vector<std::vector<double>> shelf_vector_comp(9,std::vector<double>(3));
-    std::vector <std::string> shelf_vector;
-    shelf_vector.push_back("/shelf3_frame");
-    shelf_vector.push_back("/shelf4_frame");
-    shelf_vector.push_back("/shelf5_frame");
-    shelf_vector.push_back("/shelf6_frame");
-    shelf_vector.push_back("/shelf7_frame");
-    shelf_vector.push_back("/shelf8_frame");
-    shelf_vector.push_back("/shelf9_frame");
-    shelf_vector.push_back("/shelf10_frame");
-    shelf_vector.push_back("/shelf11_frame");
-    for (auto c: shelf_vector) {
-        comp.shelf_callback(c);
-    }
-    shelf_vector_comp = comp.get_shelf_vector();
-    ROS_INFO_STREAM("Distance between the shelves");
-    for (int i = 0; i <=7 ; i++) {
-        if (5<=(abs(shelf_vector_comp[i][0] - shelf_vector_comp[i+1][0])) and (abs(shelf_vector_comp[i][0] - shelf_vector_comp[i+1][0]))<=7){
-            ROS_INFO_STREAM("Gaps between shelves "<<i+3<<" and "<<i+4<<" "<<abs(shelf_vector_comp[i][0] - shelf_vector_comp[i+1][0]));
-        }
-    }
-        // FOR FUTURE REFERENCE :: >
-        // now you can write the code to select which waypoints
-        // has to be inserted, depending on the shelf distances
-        // observed through the code above.
 
-    //end of he shelf vector code
+
+    // location where gantry hover to pick up part at belt
+    bin1_w1.gantry = {2.75, - 0.77, PI/2};
+    bin1_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin1_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    bin1_w2.gantry = {0,0,0};
+    bin1_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin1_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
 
     //shelf 4
     int cam = 4;
@@ -201,13 +196,13 @@ void GantryControl::init() {
     waypoints.push_back(shelf8a_w4_);
     waypoints.push_back(shelf8a_w5_);
     waypoints.push_back(shelf8a_w6_);
-//    waypoints.push_back(shelf8a_w7_);
-//    waypoints.push_back(shelf8a_w8_);
     pickup_locations[cam] = waypoints;
 
-
-
-
+    cam = 11;
+    waypoints.clear();
+    waypoints.push_back(bin1_w1);
+//    waypoints.push_back(bin1_w2);
+    pickup_locations[cam] = waypoints;
 
 // BIN 16 preset location
     bin16_.gantry = {5.00, 1.95,0.0};
@@ -274,7 +269,7 @@ void GantryControl::init() {
     agv2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //    Agv1 location
-    agv1_.gantry = {0.6, -6.9, PI};
+    agv1_.gantry = {0.6, -6.95, PI};
     // agv1_.left_arm = {-0.38, -PI/4, PI/2, -PI/4, 1.15, 0};
     agv1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -349,8 +344,8 @@ void GantryControl::init() {
     shelf11_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     // location where gantry hover to pick up part at belt
-    belt_pickup_.gantry = {0.15, -3, PI/2};
-    belt_pickup_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    belt_pickup_.gantry = {0.52, -3.27, PI/2};
+    belt_pickup_.left_arm = {0.38, -0.41, 1.05, -0.63, 1.94, 0.0};
     belt_pickup_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     // location where gantry hover to pick up part at belt
@@ -466,6 +461,114 @@ stats GantryControl::getStats(std::string function) {
     if (function == "gripFromBelt") return gripFromBelt_;
     if (function == "grip") return grip_;
 }
+
+bool GantryControl::pickMovingPart(part part) {
+    //--Activate gripper
+    activateGripper("left_arm");
+//    ros::AsyncSpinner spinner(1);
+//    spinner.start();
+
+//    left_arm_group_.setPoseReferenceFrame("world");
+    geometry_msgs::Pose currentPose = left_arm_group_.getCurrentPose().pose;
+
+//    ROS_INFO_STREAM("[left_arm_group_]= " << currentPose.position.x << ", " << currentPose.position.y << "," << currentPose.position.z);
+
+    part.pose.position.z = part.pose.position.z + model_height.at(part.type) + GRIPPER_HEIGHT - EPSILON;
+    part.pose.orientation.x = currentPose.orientation.x;
+    part.pose.orientation.y = currentPose.orientation.y;
+    part.pose.orientation.z = currentPose.orientation.z;
+    part.pose.orientation.w = currentPose.orientation.w;
+//    ROS_INFO_STREAM("["<< part.type<<"]= " << part.pose.position.x << ", " << part.pose.position.y << "," << part.pose.position.z << "," << part.pose.orientation.x << "," << part.pose.orientation.y << "," << part.pose.orientation.z << "," << part.pose.orientation.w);
+
+    auto state = getGripperState("left_arm");
+    if (state.enabled) {
+        ROS_INFO_STREAM("[Gripper] = enabled");
+        //--Move arm to part
+        left_arm_group_.setPoseTarget(part.pose);
+        left_arm_group_.move();
+        auto state = getGripperState("left_arm");
+        if (state.attached) {
+            ROS_INFO_STREAM("[Gripper] = object attached");
+            //--Move arm to previous position
+//            left_arm_group_.setPoseTarget(currentPose);
+//            left_arm_group_.move();
+//            goToPresetLocation(start_);
+            return true;
+        }
+//        else {
+//            ROS_INFO_STREAM("[Gripper] = object not attached");
+//            int attempt{0}, max_attempts{2};
+//            int current_attempt{0};
+//            while(!state.attached || (attempt != max_attempts)) {
+//                ROS_INFO_STREAM("Attached status = " << state.attached);
+//                left_arm_group_.setPoseTarget(currentPose);
+//                left_arm_group_.move();
+//                ros::Duration(0.5).sleep();
+//                left_arm_group_.setPoseTarget(part.pose);
+//                left_arm_group_.move();
+//                activateGripper("left_arm");
+//                auto state = getGripperState("left_arm");
+//                if(state.attached)
+//                {
+//                    return true;
+//                }
+//                attempt += 1;
+//            }
+//        }
+    }
+    else {
+        ROS_INFO_STREAM("[Gripper] = not enabled");
+    }
+    return false;
+
+    /**
+     * We want the Cartesian path to be interpolated at a resolution of 1 cm which is why
+     * we will specify 0.01 as the max step in Cartesian translation.
+     * We will specify the jump threshold as 0.0, effectively disabling it.
+     */
+    //--define a set of waypoints
+//    geometry_msgs::Pose near_pick_pose;
+//    geometry_msgs::Pose pick_pose;
+//    near_pick_pose = part.pose;
+//    pick_pose = part.pose;
+//
+//    near_pick_pose.position.z += 0.1;
+//    pick_pose.position.z += 0.015;
+//
+//    //--waypoints
+//    ROS_INFO_STREAM("[near_pick_pose]= " << near_pick_pose.position.x << "," << near_pick_pose.position.y << "," << near_pick_pose.position.z << "," << near_pick_pose.orientation.x << "," << near_pick_pose.orientation.y << "," << near_pick_pose.orientation.z << "," << near_pick_pose.orientation.w);
+//    ROS_INFO_STREAM("[pick_pose]= " << pick_pose.position.x << "," << pick_pose.position.y << "," << pick_pose.position.z << "," << pick_pose.orientation.x << "," << pick_pose.orientation.y << "," << pick_pose.orientation.z << "," << pick_pose.orientation.w);
+//    std::vector<geometry_msgs::Pose> waypoints;
+//    waypoints.push_back(near_pick_pose);
+//    waypoints.push_back(pick_pose);
+
+//    moveit_msgs::RobotTrajectory trajectory;
+//    const double jump_threshold = 0.0;
+//    const double eef_step = 0.001;
+//    double fraction = left_arm_group_.computeCartesianPath(waypoints, eef_step, jump_threshold, trajectory);
+//
+//    moveit::planning_interface::MoveGroupInterface::Plan my_plan;
+//    bool success = (left_arm_group_.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+//    if (success)
+//        left_arm_group_.move();
+//    ros::waitForShutdown();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 geometry_msgs::Pose GantryControl::getTargetWorldPose(geometry_msgs::Pose target,
                                                       std::string agv){
@@ -829,9 +932,11 @@ void GantryControl::placePart(part part, std::string agv){
 
 //    target_yaw =  -(final_yaw - (initial_yaw - 3.2) + 3.14) - 2.36; //Rwa4 working code
 
+//    target_yaw = -(final_yaw - (initial_yaw + 3.14) - 3.14 - 0.633); //RWA5 Green Gasket picking
+
     if(initial_yaw < 0) {
         ROS_INFO_STREAM("Initial pose was negative -45 ");
-        target_yaw = -(final_yaw - (initial_yaw + 3.14) - 3.14 - 0.633); //RWA5 Green Gasket picking
+        target_yaw = -(final_yaw - (initial_yaw + 3.14) - 3.14 - 0.733); //RWA5 Green Gasket picking
     }
     else {
         ROS_INFO_STREAM("Initial pose was positive 45 ");

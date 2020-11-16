@@ -19,8 +19,8 @@ std::vector<product> product_vector;
 std::vector<pick_and_place> pick_and_place_poses_vector;
 std::array<std::array<part, 20>, 20>  parts_from_camera ;
 std::vector<std::vector<std::vector<master_struct> > > master_vector (10,std::vector<std::vector<master_struct> >(10,std::vector <master_struct>(20)));
+//shelf vector
 std::vector<std::vector<double>> shelf_vector(9,std::vector<double>(3));
-////////////////////////////////////////////////////
 
 Competition::Competition(ros::NodeHandle & node): current_score_(0)
 {
@@ -51,7 +51,7 @@ void Competition::init() {
             "/ariac/quality_control_sensor_1", 10, &Competition::quality_control_sensor_1_subscriber_callback, this);
 
     ROS_INFO("Subscribe to the /ariac/quality_control_sensor_2"); //AGV1
-    quality_control_sensor_1_subscriber_ = node_.subscribe(
+    quality_control_sensor_2_subscriber_ = node_.subscribe(
             "/ariac/quality_control_sensor_2", 10, &Competition::quality_control_sensor_2_subscriber_callback, this);
 
     ROS_INFO("Subscribe to the /ariac/breakbeam_0");
@@ -94,6 +94,12 @@ void Competition::init() {
     breakbeam_sensor_9_subscriber_ = node_.subscribe(
             "/ariac/breakbeam_9", 10, &Competition::breakbeam_sensor_9_callback, this);
 
+    ROS_INFO("Subscribe to the /ariac/breakbeam_10");
+    breakbeam_sensor_10_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_10", 10, &Competition::breakbeam_sensor_10_callback, this);
+
+
+
   startCompetition();
 
   init_.total_time += ros::Time::now().toSec() - time_called;
@@ -106,66 +112,71 @@ void Competition::breakbeam_sensor_0_callback(const nist_gear::Proximity::ConstP
 
 void Competition::breakbeam_sensor_1_callback(const nist_gear::Proximity::ConstPtr & msg){
     breakbeam_conveyor_belt_part_status_1 = msg->object_detected;
-    if(breakbeam_conveyor_belt_part_status_1 == true){
-        human_detected=1;
-    }
 }
 
 void Competition::breakbeam_sensor_2_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_conveyor_belt_part_status_2 = msg->object_detected;
-    if(breakbeam_conveyor_belt_part_status_2 == true){
+    breakbeam_part_status_2 = msg->object_detected;
+    if(breakbeam_part_status_2 == true){
         human_detected=1;
     }
 }
 
 void Competition::breakbeam_sensor_3_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_conveyor_belt_part_status_3 = msg->object_detected;
-    if(breakbeam_conveyor_belt_part_status_3 == true){
+    breakbeam_part_status_3 = msg->object_detected;
+    if(breakbeam_part_status_3 == true){
         human_detected=1;
     }
 }
 
 void Competition::breakbeam_sensor_4_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_conveyor_belt_part_status_4 = msg->object_detected;
-    if(breakbeam_conveyor_belt_part_status_4 == true){
+    breakbeam_part_status_4 = msg->object_detected;
+    if(breakbeam_part_status_4 == true){
         human_detected=1;
     }
 }
 
 void Competition::breakbeam_sensor_5_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_conveyor_belt_part_status_5 = msg->object_detected;
-    if(breakbeam_conveyor_belt_part_status_5 == true){
+    breakbeam_part_status_5 = msg->object_detected;
+    if(breakbeam_part_status_5 == true){
         human_detected=1;
     }
 }
 
 void Competition::breakbeam_sensor_6_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_conveyor_belt_part_status_6 = msg->object_detected;
-    if(breakbeam_conveyor_belt_part_status_6 == true){
+    breakbeam_part_status_6 = msg->object_detected;
+    if(breakbeam_part_status_6 == true){
         human_detected=1;
     }
 }
 
 void Competition::breakbeam_sensor_7_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_conveyor_belt_part_status_7 = msg->object_detected;
-    if(breakbeam_conveyor_belt_part_status_7 == true){
+    breakbeam_part_status_7 = msg->object_detected;
+    if(breakbeam_part_status_7 == true){
         human_detected=1;
     }
 }
 
 void Competition::breakbeam_sensor_8_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_conveyor_belt_part_status_8 = msg->object_detected;
-    if(breakbeam_conveyor_belt_part_status_8 == true){
+    breakbeam_part_status_8 = msg->object_detected;
+    if(breakbeam_part_status_8 == true){
         human_detected=1;
     }
 }
 
 void Competition::breakbeam_sensor_9_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_conveyor_belt_part_status_9 = msg->object_detected;
-    if(breakbeam_conveyor_belt_part_status_9 == true){
+    breakbeam_part_status_9 = msg->object_detected;
+    if(breakbeam_part_status_9 == true){
         human_detected=1;
     }
 }
+
+void Competition::breakbeam_sensor_10_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_10 = msg->object_detected;
+    if(breakbeam_part_status_10 == true){
+        human_detected=1;
+    }
+}
+
 
 //checks if a human was EVER detected
 // can include functionality for which aisle as well
@@ -250,7 +261,6 @@ void Competition::shelf_callback(std::string shelf_name)
 std::vector<std::vector<double>> Competition::get_shelf_vector(){
     return shelf_vector;
 }
-
 
 void Competition::setter_delivered(int i, int j, int k)
 {
@@ -396,6 +406,8 @@ part Competition::get_quality_sensor_status_agv1(){
 
 void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::ConstPtr & msg, int cam_idx)
 {
+    std::vector<part> parts_from_15_camera_new;
+
     tf2_ros::Buffer tfBuffer;
     tf2_ros::TransformListener tfListener(tfBuffer);
     std::ostringstream otopic;
@@ -463,23 +475,38 @@ void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::C
                     (msg->models[i].type == "disk_part_blue") ||
                     (msg->models[i].type == "disk_part_red") ||
                     (msg->models[i].type == "disk_part_green") ||
-                    (msg->models[i].type == "piston_part_blue") ||
-                    (msg->models[i].type == "piston_part_green") ||
-                    (msg->models[i].type == "piston_part_red") ||
+                    (msg->models[i].type == "piston_rod_part_blue") ||
+                    (msg->models[i].type == "piston_rod_part_green") ||
+                    (msg->models[i].type == "piston_rod_part_red") ||
                     (msg->models[i].type == "gasket_part_blue") ||
                     (msg->models[i].type == "gasket_part_red") ||
                     (msg->models[i].type == "gasket_part_green")) {
+//                    ROS_INFO_STREAM(msg->models[i].type << " found on belt");
+                    part part_under_camera15;
+                    part_under_camera15.type = msg->models[i].type;
+                    part_under_camera15.pose.position.x = tx;
+                    part_under_camera15.pose.position.y = ty;
+                    part_under_camera15.pose.position.z = tz;
+                    part_under_camera15.pose.orientation.x = pose_target.pose.orientation.x;
+                    part_under_camera15.pose.orientation.y = pose_target.pose.orientation.y;
+                    part_under_camera15.pose.orientation.z = pose_target.pose.orientation.z;
+                    part_under_camera15.pose.orientation.w = pose_target.pose.orientation.w;
+                    part_under_camera15.faulty = false;
+                    part_under_camera15.picked = false;
+                    parts_from_15_camera_new.push_back(part_under_camera15);
+                    parts_from_15_camera = parts_from_15_camera_new;
 
-                    parts_from_15_camera[i].type = msg->models[i].type;
-                    parts_from_15_camera[i].pose.position.x = tx;
-                    parts_from_15_camera[i].pose.position.y = ty;
-                    parts_from_15_camera[i].pose.position.z = tz;
-                    parts_from_15_camera[i].pose.orientation.x = pose_target.pose.orientation.x;
-                    parts_from_15_camera[i].pose.orientation.y = pose_target.pose.orientation.y;
-                    parts_from_15_camera[i].pose.orientation.z = pose_target.pose.orientation.z;
-                    parts_from_15_camera[i].pose.orientation.w = pose_target.pose.orientation.w;
-                    parts_from_15_camera[i].faulty = false;
-                    parts_from_15_camera[i].picked = false;
+//                    parts_from_15_camera[i].type = msg->models[i].type;
+//                    parts_from_15_camera[i].pose.position.x = tx;
+//                    parts_from_15_camera[i].pose.position.y = ty;
+//                    parts_from_15_camera[i].pose.position.z = tz;
+//                    parts_from_15_camera[i].pose.orientation.x = pose_target.pose.orientation.x;
+//                    parts_from_15_camera[i].pose.orientation.y = pose_target.pose.orientation.y;
+//                    parts_from_15_camera[i].pose.orientation.z = pose_target.pose.orientation.z;
+//                    parts_from_15_camera[i].pose.orientation.w = pose_target.pose.orientation.w;
+//                    parts_from_15_camera[i].faulty = false;
+//                    parts_from_15_camera[i].picked = false;
+
                     if(msg->models.size() > 0)
                     {
 //                        ROS_INFO_STREAM("Camera Matrix loaded with conveyor belt part");
@@ -572,6 +599,11 @@ std::array<part, 20> Competition::get_parts_from_16_camera()
 std::array<part, 20> Competition::get_parts_from_17_camera()
 {
     return parts_from_17_camera;
+}
+
+std::vector<part> Competition::get_parts_from_15_camera()
+{
+    return parts_from_15_camera;
 }
 
 void Competition::quality_control_sensor_1_subscriber_callback(const nist_gear::LogicalCameraImage::ConstPtr & msg)
