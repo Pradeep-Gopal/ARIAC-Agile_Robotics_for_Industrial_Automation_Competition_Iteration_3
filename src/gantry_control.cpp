@@ -634,7 +634,7 @@ geometry_msgs::Pose GantryControl::getTargetWorldPose_dummy(geometry_msgs::Pose 
     return world_target;
 }
 
-bool GantryControl::pickPart(part part){
+bool GantryControl::pickPart(part part) {
     //--Activate gripper
     activateGripper("left_arm");
 //    ros::AsyncSpinner spinner(1);

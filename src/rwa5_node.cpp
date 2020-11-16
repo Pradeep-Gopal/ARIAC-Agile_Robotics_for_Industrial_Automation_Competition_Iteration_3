@@ -301,8 +301,8 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
         if (!comp.get_parts_from_15_camera().empty()) { // if no part detected in camera 15
             part part_picking = comp.get_parts_from_15_camera().back();
 //            ROS_INFO_STREAM("Attempting to pick " << part_picking.type << " from " << part_picking.pose);
-            part_picking.pose.position.z += 0.01;
-            part_picking.pose.position.y -= offset_est; // 1.75;
+//            part_picking.pose.position.z += 0.01;
+            part_picking.pose.position.y -= offset_est;
 
             if (gantry.pickPart(part_picking)) {    // if part picked up
                 ROS_INFO_STREAM("Part picked");
@@ -321,7 +321,8 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
                 ROS_INFO_STREAM("Start Location Reached");
 
                 //// update parts in camera info (use camera 11 call back function)
-                parts_from_camera_main[11][count] = comp.parts_from_11_camera[0];   // update parts in camera above bin1
+                parts_from_camera_main[11][count] = comp.parts_from_11_camera[count];   // update parts in camera above bin1
+
                 count += 1;
             } else {
                 ROS_INFO_STREAM("Part not pick, try again");
@@ -329,8 +330,14 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
         } else {
             ROS_INFO_STREAM("no part on belt");
         }
+
+        ros::Duration(2).sleep();
     }
     conveyor_part_picked = true;
+    ROS_INFO_STREAM("first part " << parts_from_camera_main[11][0].pose);
+
+    ROS_INFO_STREAM("second part " << parts_from_camera_main[11][1].pose);
+
 }
 
 //void test(Competition& comp, GantryControl& gantry) {
@@ -377,7 +384,7 @@ int main(int argc, char ** argv) {
     master_vector_main = comp.get_master_vector();
 
     //// testing here
-//    pick_part_from_conveyor(comp, gantry);
+    pick_part_from_conveyor(comp, gantry);
 
     LOOP3:for(i; i < comp.get_received_order_vector().size();  i++) {
     for (int j = 0; j < comp.get_received_order_vector()[i].shipments.size(); j++) {
