@@ -49,12 +49,14 @@ public:
     std::vector<nist_gear::Order> get_received_order_vector();
     void setter_delivered(int i, int j, int k);
     void delete_completed_order(int i);
+    std::vector<part> parts_from_15_camera;
+    std::vector <part> get_parts_from_15_camera();
     std::array <part, 20> get_parts_from_16_camera();
     std::array <part, 20> get_parts_from_17_camera();
 
     //--attributes
     std::array<part, 20> parts_from_11_camera;
-    std::array<part, 20> parts_from_15_camera;
+//    std::array<part, 20> parts_from_15_camera;
     std::array<part, 20> parts_from_16_camera;
     std::array<part, 20> parts_from_17_camera;
     bool conveyor_belt_part_status = false;

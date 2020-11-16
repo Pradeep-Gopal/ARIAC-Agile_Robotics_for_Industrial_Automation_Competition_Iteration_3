@@ -53,6 +53,7 @@ class GantryControl {
 
 //    bool pickPart(part part, std::string arm_name);
     bool pickPart(part part);
+    bool pickMovingPart(part part);
     void placePart(part part, std::string agv);
     void placePart_right_arm(part part,std::string agv);
     
