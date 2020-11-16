@@ -301,7 +301,7 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
         if (!comp.get_parts_from_15_camera().empty()) { // if no part detected in camera 15
             part part_picking = comp.get_parts_from_15_camera().back();
 //            ROS_INFO_STREAM("Attempting to pick " << part_picking.type << " from " << part_picking.pose);
-            part_picking.pose.position.z += 0.005;
+            part_picking.pose.position.z += 0.006;
             part_picking.pose.position.y -= offset_est;
 
             if (gantry.pickMovingPart(part_picking)) {    // if part picked up
