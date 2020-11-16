@@ -84,16 +84,6 @@ void GantryControl::init() {
     shelf8_w4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-
-
-//    shelf8_w3_.gantry = {-13.5, -1.6, 0.0};
-//    shelf8_w3_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_w4_.gantry = {-14.1, -1.2, 0.0};
-//    shelf8_w4_.left_arm = {-2.79, -PI/4, PI/2, -PI/4, -1.39626, 0};
-//    shelf8_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
     shelf8_w5_.gantry = {-13.5, -1.6, 0.0};
     shelf8_w5_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -119,14 +109,6 @@ void GantryControl::init() {
     shelf8a_w4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8a_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-//    shelf8a_w5_.gantry = {-14.5, 1.6, 3.14};
-//    shelf8a_w5_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8a_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8a_w6_.gantry = {-14.5, 1.3, 3.14};
-//    shelf8a_w6_.left_arm = {-2.79, -PI/4, PI/2, -PI/4, -1.39626, 0};
-//    shelf8a_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
     shelf8a_w5_.gantry = {-14.7, 1.6, 3.14};
     shelf8a_w5_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8a_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -134,6 +116,15 @@ void GantryControl::init() {
     shelf8a_w6_.gantry = {-14.7, 1.3, 3.14};
     shelf8a_w6_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8a_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    // location where gantry hover to pick up part at belt
+    bin1_w1.gantry = {2.75, - 0.77, PI/2};
+    bin1_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin1_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    bin1_w2.gantry = {0,0,0};
+    bin1_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin1_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 
     //shelf 4
@@ -157,9 +148,11 @@ void GantryControl::init() {
     waypoints.push_back(shelf8a_w6_);
     pickup_locations[cam] = waypoints;
 
-
-
-
+    cam = 11;
+    waypoints.clear();
+    waypoints.push_back(bin1_w1);
+//    waypoints.push_back(bin1_w2);
+    pickup_locations[cam] = waypoints;
 
 // BIN 16 preset location
     bin16_.gantry = {5.00, 1.95,0.0};
