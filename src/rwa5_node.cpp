@@ -305,25 +305,25 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
             part_picking.pose.position.y -= offset_est;
 
             if (gantry.pickPart(part_picking)) {    // if part picked up
-                ROS_INFO_STREAM("Part picked");
-                gantry.goToPresetLocation(gantry.belt_pickup_);
-                ROS_INFO_STREAM("belt pick up location reached");
+                if (gantry.getGripperState("left_arm").attached) {   // check again for part attached
+                    ROS_INFO_STREAM("Part picked");
+                    gantry.goToPresetLocation(gantry.belt_pickup_);
+                    ROS_INFO_STREAM("belt pick up location reached");
 
-                //// drop part at desired location on bin1
-                PresetLocation bin1_drop = gantry.bin1_;
-                bin1_drop.gantry[0] += (count)*0.25;    // offset the next drop off location by 0.25
-                gantry.goToPresetLocation(bin1_drop);
-                ROS_INFO_STREAM("bin 1 location reached");
-                gantry.deactivateGripper("left_arm");
-                ROS_INFO_STREAM("Gripper Deactivated");
+                    //// drop part at desired location on bin1
+                    PresetLocation bin1_drop = gantry.bin1_;
+                    bin1_drop.gantry[0] += (count) * 0.25;    // offset the next drop off location by 0.25
+                    gantry.goToPresetLocation(bin1_drop);
+                    ROS_INFO_STREAM("bin 1 location reached");
+                    gantry.deactivateGripper("left_arm");
+                    ROS_INFO_STREAM("Gripper Deactivated");
 
-                gantry.goToPresetLocation(gantry.start_);
-                ROS_INFO_STREAM("Start Location Reached");
+                    gantry.goToPresetLocation(gantry.start_);
+                    ROS_INFO_STREAM("Start Location Reached");
 
-                //// update parts in camera info (use camera 11 call back function)
-                parts_from_camera_main[11][count] = comp.parts_from_11_camera[count];   // update parts in camera above bin1
-
-                count += 1;
+                    //// update parts in camera info (use camera 11 call back function)
+                    parts_from_camera_main[11][count] = comp.parts_from_11_camera[count];   // update parts in camera above bin1
+                }
             } else {
                 ROS_INFO_STREAM("Part not pick, try again");
             }
