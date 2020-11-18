@@ -982,15 +982,64 @@ int main(int argc, char ** argv) {
 
                                 ROS_INFO_STREAM("AGVVVVVVVVVVVVVVVVVVVVVVV");
                                 ROS_INFO_STREAM(master_vector_main[i][j][k].agv_id);
-                                gantry.placePart(part_in_tray, master_vector_main[i][j][k].agv_id);
-                                ROS_INFO_STREAM("Part placed");
 
-                                if (master_vector_main[i][j][k].agv_id == "agv2") {
-                                    gantry.goToPresetLocation(gantry.agv2_);
-                                    ROS_INFO_STREAM("AGV2 location reached");
+                                if (part_in_tray.pose.orientation.x == 1) {
+                                    if(master_vector_main[i][j][k].agv_id=="agv1") {
+                                        gantry.activateGripper("right_arm");
+                                        ros::Duration(2).sleep();
+                                        ROS_INFO_STREAM("Right Gripper activated");
+                                        ROS_INFO_STREAM("Flipping Needed");
+                                        gantry.goToPresetLocation(gantry.agv1_flip_);
+                                        ROS_INFO_STREAM("AGV 2 location reached");
+                                        gantry.goToPresetLocation(gantry.pose_change_1_agv1);
+                                        ROS_INFO_STREAM("Flipping pose1 reached");
+                                        gantry.goToPresetLocation(gantry.pose_change_2_agv1);
+                                        ROS_INFO_STREAM("Flipping pose2 reached");
+                                        gantry.deactivateGripper("left_arm");
+                                        ros::Duration(2).sleep();
+                                        ROS_INFO_STREAM("Left Gripper Disabled");
+                                        gantry.goToPresetLocation(gantry.agv1_flip_target_);
+                                        ROS_INFO_STREAM("Reached AGV");
+                                    }
+                                    if(master_vector_main[i][j][k].agv_id=="agv2") {
+                                        gantry.activateGripper("right_arm");
+                                        ros::Duration(2).sleep();
+                                        ROS_INFO_STREAM("Right Gripper activated");
+                                        ROS_INFO_STREAM("Flipping Needed");
+                                        gantry.goToPresetLocation(gantry.agv2_flip_);
+                                        ROS_INFO_STREAM("AGV 2 location reached");
+                                        gantry.goToPresetLocation(gantry.pose_change_1_agv2);
+                                        ROS_INFO_STREAM("Flipping pose1 reached");
+                                        gantry.goToPresetLocation(gantry.pose_change_2_agv2);
+                                        ROS_INFO_STREAM("Flipping pose2 reached");
+                                        gantry.deactivateGripper("left_arm");
+                                        ros::Duration(2).sleep();
+                                        ROS_INFO_STREAM("Left Gripper Disabled");
+                                        gantry.goToPresetLocation(gantry.agv2_flip_target_);
+                                        ROS_INFO_STREAM("Reached AGV");
+                                    }
+
+
+
+                                    part_in_tray.pose.orientation.x = 0;
+                                    part_in_tray.pose.orientation.y = 0;
+                                    part_in_tray.pose.orientation.z = 0;
+                                    part_in_tray.pose.orientation.w = 1;
+                                    gantry.placePart_right_arm(part_in_tray, master_vector_main[i][j][k].agv_id);
+                                    ROS_INFO_STREAM("Part placed");
                                 } else {
-                                    gantry.goToPresetLocation(gantry.agv1_);
-                                    ROS_INFO_STREAM("AGV1 location reached");
+
+
+                                    gantry.placePart(part_in_tray, master_vector_main[i][j][k].agv_id);
+                                    ROS_INFO_STREAM("Part placed");
+
+                                    if (master_vector_main[i][j][k].agv_id == "agv2") {
+                                        gantry.goToPresetLocation(gantry.agv2_);
+                                        ROS_INFO_STREAM("AGV2 location reached");
+                                    } else {
+                                        gantry.goToPresetLocation(gantry.agv1_);
+                                        ROS_INFO_STREAM("AGV1 location reached");
+                                    }
                                 }
 
 //                                //Fixing part pose if gripper is Faulty
