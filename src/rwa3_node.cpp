@@ -48,6 +48,7 @@ void blackoutDetector(Competition * comp){
             std::this_thread::sleep_for(std::chrono::milliseconds(500));
         }else{
             comp->blackout = true;
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
         }
     }
     ROS_INFO_STREAM("[blackoutDetector] ended");
@@ -104,11 +105,7 @@ int main(int argc, char ** argv) {
     part_in_tray.pose.orientation.w = 1.0;
 
     std::thread thread(blackoutDetector, &comp);//start blackout detector 
-    for(int i = 0; i < 5; i++){
-        comp.blackout = true;
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        ROS_INFO_STREAM("Blackout: "<< isBlackout(comp));
-    }
+
     //--Go pick the part
     gantry.pickPart(my_part);
     //--Go place the part
