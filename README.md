@@ -4,6 +4,7 @@ Agile Robotics Development for ARIAC challenge hosted by NIST. Picking and deliv
 
 ## Results
 [Scenario 5](https://youtu.be/OBoudhBBgK8)
+[Scenario 6](https://www.youtube.com/watch?v=RjY7Hs_85mE)
 
 To view previous scenarios and results, please click the link below
 
