@@ -26,7 +26,7 @@ Install Ariac package in your workspace using the steps mentioned in the followi
 
 Follow these instructions to run the package after installing ARIAC
 
-1. Copy the package and paste it in /ariac_ws/src
+1. Copy the package and paste it in /ariac_ws/src and rename the package to rwa5_group_1
 2. Open a terminal and type the following commands
 3. cd /ariac_ws
 4. catkin build rwa5_group_1
