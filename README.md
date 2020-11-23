@@ -1,6 +1,6 @@
 # ARIAC Competition
 
-Picking and delivering parts in an industrial environment with faulty parts/faulty gripper/sensor blackout/moving obstacles
+Agile Robotics Development for ARIAC challenge hosted by NIST. Picking and delivering parts in an industrial environment with faulty parts/faulty gripper/sensor blackout/moving obstacles
 
 ## Results
 [Scenario 5](https://youtu.be/OBoudhBBgK8)
